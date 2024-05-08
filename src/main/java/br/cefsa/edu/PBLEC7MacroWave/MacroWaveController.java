@@ -1,6 +1,7 @@
 package br.cefsa.edu.PBLEC7MacroWave;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -8,7 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 public class MacroWaveController {
 
     private Onda onda =  new Onda(1, 20, 2000, 90, "quadrada");
@@ -22,10 +23,16 @@ public class MacroWaveController {
 
 
     @GetMapping("/")
-    public String hello() {
-        return "Hello World";
+    public String index() {
+        return "index";
     }
 
+    @GetMapping("/wave")
+    public String wave() {
+        return "wave";
+    }
+
+    /*
     @GetMapping("/wave")
     public Collection<Onda> listarOndas() {
         return ondas.values();
@@ -53,4 +60,6 @@ public class MacroWaveController {
         ondas.put(onda.getId(), onda);
         return onda;
     }
+
+     */
 }
