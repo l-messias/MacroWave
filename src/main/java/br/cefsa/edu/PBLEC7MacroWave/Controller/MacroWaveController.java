@@ -1,11 +1,13 @@
 package br.cefsa.edu.PBLEC7MacroWave.Controller;
-
+import br.cefsa.edu.PBLEC7MacroWave.Model.CalculoOnda;
 import br.cefsa.edu.PBLEC7MacroWave.Model.Canal;
 import br.cefsa.edu.PBLEC7MacroWave.Model.Categoria;
 import br.cefsa.edu.PBLEC7MacroWave.Model.Onda;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +16,6 @@ import java.util.Map;
 @Controller
 public class MacroWaveController {
 
-
-    @ModelAttribute("novaOnda")
-    public Onda novaOnda() {
-        return new Onda();
-    }
 
     @ModelAttribute("canais")
     public Canal[] canais() {
@@ -45,46 +42,23 @@ public class MacroWaveController {
         return "form-onda";
     }
 
-    @PostMapping("/")
-    public String postOnda(@RequestParam("categoria-select") Categoria categoria,
-                           @RequestParam("frequencia") int frequencia,
-                           @RequestParam("canal-select") Canal canal,
-                           @RequestParam("frequencia-corte-sup") int frequenciaDeCorteSup,
-                           @RequestParam(value = "frequencia-corte-inf", required = false) Integer frequenciaDeCorteInf,
-                           Model model) {
+    @PostMapping("/criar-simulacao")
+    public ResponseEntity<Map<String, Object>> postOnda(@RequestParam("categoria") Categoria categoria,
+                                                        @RequestParam("frequencia") int frequencia,
+                                                        @RequestParam("canal") Canal canal,
+                                                        @RequestParam("frequenciaDeCorteSup") int frequenciaDeCorteSup,
+                                                        @RequestParam(value = "frequenciaDeCorteInf", required = false) Integer frequenciaDeCorteInf) {
 
-        // Cria um novo objeto Onda e configura seus atributos com os parâmetros do formulário
-        Onda onda = new Onda();
-        onda.setCategoria(categoria);
-        onda.setFrequencia(frequencia);
-        onda.setCanal(canal);
-        onda.setFrequenciaDeCorteSup(frequenciaDeCorteSup);
-        if (frequenciaDeCorteInf != null) {
-            onda.setFrequenciaDeCorteInf(frequenciaDeCorteInf);
-        }
+        // Calcula os sinais e demais dados usando os parâmetros enviados pelo usuário
+        Map<Double, Double> sinaisEntrada = CalculoOnda.calcularOnda(categoria, canal, frequencia, frequenciaDeCorteSup, frequenciaDeCorteInf);
 
-        // Calcula os sinais e demais dados usando os métodos da classe Onda
-        List<Double> sinalEntrada = onda.calcularSinalEntrada(1000, 0.001);
-        List<Double> amplitudes = onda.calcularAmplitudeEntrada(1000, 0.001);
-        List<Double> fases = onda.calcularFaseEntrada(1000, 0.001);
-        List<Double> moduloResposta = onda.calcularModuloRespostaFrequencia();
-        List<Double> faseResposta = onda.calcularFaseRespostaFrequencia();
-        List<Double> amplitudesSaida = onda.calcularAmplitudeSaida(1000, 0.001);
-        List<Double> fasesSaida = onda.calcularFaseSaida(1000, 0.001);
-        List<Double> sinalRecebido = onda.calcularSinalRecebido(1000, 0.001);
 
-        // Adiciona os dados ao Model
-        model.addAttribute("sinalEntrada", sinalEntrada);
-        model.addAttribute("amplitudes", amplitudes);
-        model.addAttribute("fases", fases);
-        model.addAttribute("moduloResposta", moduloResposta);
-        model.addAttribute("faseResposta", faseResposta);
-        model.addAttribute("amplitudesSaida", amplitudesSaida);
-        model.addAttribute("fasesSaida", fasesSaida);
-        model.addAttribute("sinalRecebido", sinalRecebido);
+        Map<String, Object> response = new HashMap<>();
+        response.put("sinaisEntrada", sinaisEntrada);
 
-        return "onda";
+        return ResponseEntity.ok(response);
     }
+
 
     /*
     @GetMapping("/wave")
