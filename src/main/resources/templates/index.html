@@ -86,6 +86,10 @@
                 frequenciaCorteInf = 0; // Define o valor como 0 se estiver vazio
             }
 
+            if (frequenciaCorteSup == 0) {
+                frequenciaCorteSup = frequencia; // Iguala a frequencia de corte superior à frequencia se for 0
+            }
+
             $.ajax({
                 type: "POST",
                 url: "/criar-simulacao",
@@ -123,10 +127,12 @@
             var layout = {
                 title: 'Sinal de Entrada',
                 xaxis: {
-                    title: 'Tempo (ms)'
+                    title: 'Tempo (ms)',
+                    range: [0, (xValues[xValues.length - 1] - xValues[0]) / 10] // Faixa padrão dividida por 10
                 },
                 yaxis: {
-                    title: 'Amplitude'
+                    title: 'Amplitude',
+                    range: [-2, 2]
                 }
             };
 
