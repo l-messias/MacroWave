@@ -31,6 +31,7 @@ public class CalculoOnda {
         return mapaAmplitudes;
     }
 
+    /*
     public static Map<Double, Double> calcularOndaQuadrada(double amplitudeMaxima, double frequencia, Canal canal, double frequenciaCorteSup, double frequenciaCorteInf) {
         double periodo = 1 / frequencia;
         double duracao = periodo * harmonicas;
@@ -52,6 +53,41 @@ public class CalculoOnda {
         }
         return mapaAmplitudes;
     }
+
+     */
+
+    public static Map<Double, Double> calcularOndaQuadrada(double amplitudeMaxima, double frequencia, Canal canal, double frequenciaCorteSup, double frequenciaCorteInf) {
+        double periodo = 1 / frequencia;
+        double duracao = periodo * harmonicas;
+        Map<Double, Double> mapaAmplitudes = new LinkedHashMap<>();
+        double t = 0;
+        double amplitude = 0;
+        double fase =  - Math.PI / 2;
+
+        while(t < duracao)
+        {
+            double sinalEntrada = 0;
+            t += periodo / 500;
+            for(int n = 1; n <= harmonicas; n++)
+            {
+
+                if(n % 2 == 0)
+                {
+                    amplitude = 0;
+                }
+                else
+                {
+                    amplitude = 4 / (Math.PI * n);
+                }
+                sinalEntrada += (amplitude * Math.cos(2 * Math.PI * n * frequencia * t + fase));
+            }
+            mapaAmplitudes.put(t, sinalEntrada);
+        }
+
+
+        return mapaAmplitudes;
+    }
+
 
     public static Map<Double, Double> calcularOndaTriangular(double amplitudeMaxima, double frequencia, Canal canal, double frequenciaCorteSup, double frequenciaCorteInf) {
         double periodo = 1 / frequencia;
