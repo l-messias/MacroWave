@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root{
+--fonte-principal: 'Roboto', sans-serif;
+--cor-background: hsl(27 30% 93%);
+--cor-primaria: hsl(0, 80%, 100%);
+--cor-secundaria: hsl(0, 70%, 100%);
+--cor-texto-1: hsl(10 40% 15%);
+--cor-texto-2: hsl(0, 0%, 20%);
+--cor-texto-3: hsl(0, 0%, 30%);
+}
+
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    font-family: var(--fonte-principal);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: var(--cor-texto-1);
+    background-color: var(--cor-background);
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.header-mw{
+display: flex;
+}
+
+.navbar{
+display:flex;
+}
+
+.navbar-links{
+display:flex;
+}
+
+.main-mw{
+display:flex;
+flex-direction:column;
+}
+
+.main-mw h1{
+text-align: center;
+}
+
+.container-mw{
+margin: 20px;
+}
+
+.form-onda{
+display:flex;
+flex-direction:column;
+}
+
+.form-onda label{
+margin-bottom: 10px;
+}
+
+.forma-onda input, input[type="number"], select, number {
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+}
+
+.footer-mw{
+padding: 0 20px;
+margin-top: auto;
+display:flex;
+}
+
+.hidden{
+display:none;
+}
+
+.campo {
+display: flex;
+flex-direction: column;
+}
+
+.btn-mw {
+    max-width: 140px;
+    align-self: center;
+    padding: 10px;
+    border: none;
+    background-color: hsl(0 30% 20% / 1);
+    border-radius: 20px;
+    color: hsl(0 0% 100%);
+    font-weight: 600;
+    font-size: 1.1em;
+}
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Onda</title>
+</head>
+<body>
+<div class="form-onda" id="form-onda">
+    <label for="categoria-select">Selecione o tipo de onda</label>
+    <select name="categoria-select" id="categoria-select">
+        <option th:each="categoria: ${categorias}" th:value="${categoria}" th:text="${categoria.value}"></option>
+    </select>
+
+    <label for="frequencia">Frequência em kHz (1kHz - 100kHz)</label>
+    <input type="number" name="frequencia" id="frequencia"></input>
+
+    <label for="canal-select">Selecione o tipo de canal</label>
+    <select name="canal-select" id="canal-select">
+        <option th:each="canal: ${canais}" th:value="${canal}" th:text="${canal.value}"></option>
+    </select>
+
+    <label for="frequencia-corte-inf">Frequência de Corte Inferior</label>
+    <input type="number" name="frequencia-corte-inf" id="frequencia-corte-inf"></input>
+
+    <div class="hidden campo" id="freq-sup">
+        <label for="frequencia-corte-sup">Frequência de Corte Superior</label>
+        <input type="number" name="frequencia-corte-sup" id="frequencia-corte-sup"></input>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MacroWave - Onda</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<h1>Resultado da Simulação de Onda</h1>
+
+<!-- Gráficos -->
+<div id="sinal-entrada"></div>
+<div id="amplitudes"></div>
+<div id="fases"></div>
+<div id="modulo-resposta"></div>
+<div id="fase-resposta"></div>
+<div id="amplitudes-saida"></div>
+<div id="fases-saida"></div>
+<div id="sinal-recebido"></div>
+
+<!-- Script para plotar os gráficos -->
+<script type="text/javascript">
+    // Sinal de entrada ao longo do tempo
+    var sinalEntrada = /*[[${sinalEntrada}]]*/ [];
+    var tempo = Array.from({length: sinalEntrada.length}, (_, i) => i);
+    var traceSinalEntrada = {
+        x: tempo,
+        y: sinalEntrada,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Sinal de Entrada'
+    };
+    Plotly.newPlot('sinal-entrada', [traceSinalEntrada]);
+
+    // Amplitudes das componentes do sinal de entrada
+    var amplitudes = /*[[${amplitudes}]]*/ [];
+    var harmonicas = Array.from({length: amplitudes.length}, (_, i) => i + 1);
+    var traceAmplitudes = {
+        x: harmonicas,
+        y: amplitudes,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Amplitudes'
+    };
+    Plotly.newPlot('amplitudes', [traceAmplitudes]);
+
+    // Fases das componentes do sinal de entrada
+    var fases = /*[[${fases}]]*/ [];
+    var traceFases = {
+        x: harmonicas,
+        y: fases,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Fases'
+    };
+    Plotly.newPlot('fases', [traceFases]);
+
+    // Módulo da resposta em frequência do canal de comunicações
+    var moduloResposta = /*[[${moduloResposta}]]*/ [];
+    var traceModuloResposta = {
+        x: harmonicas,
+        y: moduloResposta,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Módulo de Resposta'
+    };
+    Plotly.newPlot('modulo-resposta', [traceModuloResposta]);
+
+    // Fase da resposta em frequência do canal de comunicações
+    var faseResposta = /*[[${faseResposta}]]*/ [];
+    var traceFaseResposta = {
+        x: harmonicas,
+        y: faseResposta,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Fase de Resposta'
+    };
+    Plotly.newPlot('fase-resposta', [traceFaseResposta]);
+
+    // Amplitudes das componentes do sinal de saída
+    var amplitudesSaida = /*[[${amplitudesSaida}]]*/ [];
+    var traceAmplitudesSaida = {
+        x: harmonicas,
+        y: amplitudesSaida,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Amplitudes de Saída'
+    };
+    Plotly.newPlot('amplitudes-saida', [traceAmplitudesSaida]);
+
+    // Fases das componentes do sinal de saída
+    var fasesSaida = /*[[${fasesSaida}]]*/ [];
+    var traceFasesSaida = {
+        x: harmonicas,
+        y: fasesSaida,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Fases de Saída'
+    };
+    Plotly.newPlot('fases-saida', [traceFasesSaida]);
+
+    // Sinal recebido ao longo do tempo
+    var sinalRecebido = /*[[${sinalRecebido}]]*/ [];
+    var traceSinalRecebido = {
+        x: tempo,
+        y: sinalRecebido,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Sinal Recebido'
+    };
+    Plotly.newPlot('sinal-recebido', [traceSinalRecebido]);
+</script>
+</body>
+</html>
