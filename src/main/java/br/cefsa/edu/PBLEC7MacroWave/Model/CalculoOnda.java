@@ -90,11 +90,12 @@ public class CalculoOnda {
         double periodo = 1 / frequencia;
         // Definindo uma duração que mostra um número completo de períodos
         double duracao = periodo * harmonicas;
-
         // Mapa para armazenar os valores de tempo e amplitude
         Map<Double, Double> mapaAmplitudes = new LinkedHashMap<>();
+        // Variável para armazenar o tempo
         double t = 0;
-        double fase = -Math.PI / 2; // Fase inicial
+        // Fase inicial
+        double fase = -Math.PI / 2;
 
         // Incremento de tempo para resolução adequada
         double incrementoTempo = periodo / (harmonicas * 10);
@@ -107,7 +108,10 @@ public class CalculoOnda {
             for (int n = 1; n <= harmonicas; n++) {
                 if (n % 2 != 0) { // Apenas harmônicas ímpares
                     double amplitude = 8 * amplitudeMaxima / (Math.PI * Math.PI * n * n);
-                    sinalEntrada += (Math.pow(-1, (double) (n - 1) / 2) * amplitude * Math.cos(2 * Math.PI * n * frequencia * t + fase));
+                    if ((n - 1) / 2 % 2 != 0) {
+                        amplitude = -amplitude; // Tornar a amplitude negativa se n-1/2 for ímpar
+                    }
+                    sinalEntrada += amplitude * Math.cos(2 * Math.PI * n * frequencia * t + fase);
                 }
             }
 
@@ -119,30 +123,32 @@ public class CalculoOnda {
         return mapaAmplitudes;
     }
 
-
     public static Map<Double, Double> calcularOndaDenteDeSerra(double amplitudeMaxima, double frequencia, int harmonicas) {
         // Cálculo do período da onda
         double periodo = 1 / frequencia;
         // Definindo uma duração que mostra um número completo de períodos
         double duracao = periodo * harmonicas;
-
         // Mapa para armazenar os valores de tempo e amplitude
         Map<Double, Double> mapaAmplitudes = new LinkedHashMap<>();
+        // Variável para armazenar o tempo
         double t = 0;
-        double fase = -Math.PI / 2; // Fase inicial
+        // Fase inicial
+        double fase = -Math.PI / 2;
 
         // Incremento de tempo para resolução adequada
-        double incrementoTempo = periodo / (harmonicas * 10);
+        double incrementoTempo = periodo / 1000; // Resolução de 1000 pontos por período
 
         // Loop através do tempo até atingir a duração
         while (t < duracao) {
             double sinalEntrada = 0;
 
-            // Soma das harmônicas ímpares da série de Fourier
+            // Soma das harmônicas da série de Fourier
             for (int n = 1; n <= harmonicas; n++) {
                 double amplitude = (2 * amplitudeMaxima) / (Math.PI * n);
-                //sinalEntrada += ((Math.pow(-1, (n + 1)) / n) * amplitude * Math.sin(2 * Math.PI * n * frequencia * t + fase));
-                sinalEntrada += ((Math.pow(-1, (n + 1)) / n) * amplitude * Math.sin(2 * Math.PI * n * frequencia * t + fase));
+                if (n % 2 == 0) {
+                    amplitude = -amplitude;
+                }
+                sinalEntrada += amplitude * Math.sin(2 * Math.PI * n * frequencia * t);
             }
 
             // Armazenando o tempo e a amplitude calculada no mapa
@@ -152,10 +158,6 @@ public class CalculoOnda {
 
         return mapaAmplitudes;
     }
-
-
-
-
 
     public static Map<Double, Double> calcularOnda(Categoria categoria, Canal canal, double frequencia, double frequenciaCorteSup, double frequenciaCorteInf) {
         frequencia = frequencia * 1000; // Convertendo kHz para Hz
