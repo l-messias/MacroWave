@@ -1,8 +1,5 @@
 package br.cefsa.edu.PBLEC7MacroWave.Controller;
-import br.cefsa.edu.PBLEC7MacroWave.Model.CalculoOnda;
-import br.cefsa.edu.PBLEC7MacroWave.Model.Canal;
-import br.cefsa.edu.PBLEC7MacroWave.Model.Categoria;
-import br.cefsa.edu.PBLEC7MacroWave.Model.Onda;
+import br.cefsa.edu.PBLEC7MacroWave.Model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,9 +46,18 @@ public class MacroWaveController {
                                                         @RequestParam("canal") Canal canal,
                                                         @RequestParam("frequenciaDeCorteSup") int frequenciaDeCorteSup,
                                                         @RequestParam(value = "frequenciaDeCorteInf", required = false) Integer frequenciaDeCorteInf) {
+            frequencia = frequencia * 1000;
+            frequenciaDeCorteInf = frequenciaDeCorteInf * 1000;
+            frequenciaDeCorteSup = frequenciaDeCorteSup * 1000;
 
-        // Calcula os sinais e demais dados usando os parâmetros enviados pelo usuário
-        Map<Double, Double> sinaisEntrada = CalculoOnda.calcularOnda(categoria, canal, frequencia, frequenciaDeCorteSup, frequenciaDeCorteInf);
+        Map<Double, Double> sinaisEntrada =  new LinkedHashMap<>();
+        switch (categoria) {
+            case SENOIDAL -> sinaisEntrada = CalculoOndaSenoidal.getInstance().calcularOnda(frequencia);
+            case QUADRADA -> sinaisEntrada = CalculoOndaQuadrada.getInstance().calcularOnda(frequencia);
+            case TRIANGULAR -> sinaisEntrada = CalculoOndaTriangular.getInstance().calcularOnda(frequencia);
+            case DENTEDESERRA -> sinaisEntrada = CalculoOndaDenteSerra.getInstance().calcularOnda(frequencia);
+            default -> sinaisEntrada = new LinkedHashMap<>();
+        };
 
 
         Map<String, Object> response = new HashMap<>();
