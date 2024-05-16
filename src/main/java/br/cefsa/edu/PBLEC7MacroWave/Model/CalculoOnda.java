@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class CalculoOnda {
-    private static final int harmonicas = 200;
+    public static final int harmonicas = 200;
     public static final double amplitudeMaxima = 1;
 
     public Map<Double, Double> calcularOnda( double frequencia) {
@@ -22,13 +22,17 @@ public abstract class CalculoOnda {
             for(int n = 1; n <= harmonicas; n++)
             {
                 double amplitude = calculaAmplitude(n);
-                sinalEntrada += (amplitude * Math.cos(2 * Math.PI * n * frequencia * t + fase));
+                sinalEntrada += calculaSinal(amplitude,n,frequencia,t,fase);
             }
             mapaAmplitudes.put(t, sinalEntrada);
             t += incrementoTempo;
         }
 
         return mapaAmplitudes;
+    }
+
+    public  double calculaSinal(double amplitude,int n, double frequencia, double t, double fase){
+        return (amplitude * Math.cos(2 * Math.PI * n * frequencia * t + fase));
     }
     public abstract double calculaAmplitude(int harmonicaAtual);
     /*
