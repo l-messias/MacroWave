@@ -12,7 +12,7 @@ public class CalculoOndaQuadrada extends CalculoOnda {
         return instance;
     }
     @Override
-    public  double calculaAmplitude(int harmonicaAtual) {
+    public double calculaAmplitude(int harmonicaAtual, double frequencia) {
         if (harmonicaAtual % 2 != 0) {
             return 4 * amplitudeMaxima / (Math.PI * harmonicaAtual);
         }

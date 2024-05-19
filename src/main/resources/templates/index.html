@@ -31,7 +31,7 @@
             </div>
 
             <div class="campo">
-                <label for="frequencia">Frequência em kHz (1kHz - 100kHz)</label>
+                <label for="frequencia">Frequência Fundamental em kHz (1kHz - 100kHz)</label>
                 <input type="number" name="frequencia" id="frequencia"></input>
             </div>
 
@@ -56,13 +56,13 @@
         </div>
         <div class="onda-container" id="onda-container">
             <div id="sinal-entrada"></div>
-            <div id="amplitudes"></div>
-            <div id="fases"></div>
+            <div id="sinal-saida"></div>
             <div id="modulo-resposta"></div>
             <div id="fase-resposta"></div>
+            <div id="amplitudes"></div>
+            <div id="fases"></div>
             <div id="amplitudes-saida"></div>
             <div id="fases-saida"></div>
-            <div id="sinal-recebido"></div>
         </div>
     </div>
 </main>
@@ -103,7 +103,7 @@
                 dataType: "json",
                 success: function (response) {
                     // Exibir gráficos com Plotly.js
-                    exibirGraficos(response.sinaisEntrada);
+                    exibirGraficos(response);
                 },
                 error: function () {
                     alert("Erro ao processar a solicitação");
@@ -113,30 +113,39 @@
 
         // Função para exibir gráficos com Plotly.js
         function exibirGraficos(data) {
+            plotGraph('sinal-entrada', 'Sinal de Entrada', data.sinaisEntrada, 'Tempo (segundos)', 'Amplitude');
+            plotGraph('sinal-saida', 'Sinal de Saída', data.sinaisSaida, 'Tempo (segundos)', 'Amplitude');
+            plotGraph('modulo-resposta', 'Módulo da Resposta em Frequência', data.respostaModuloCanal, 'Frequência (Hz)', 'Módulo');
+            plotGraph('fase-resposta', 'Fase da Resposta em Frequência', data.respostaFaseCanal, 'Frequência (Hz)', 'Fase (graus)');
+            plotGraph('amplitudes', 'Amplitude por Frequência de Entrada', data.amplitudePorFrequenciaEntrada, 'Frequência (Hz)', 'Amplitude');
+            plotGraph('fases', 'Fase por Frequência de Entrada', data.fasePorFrequenciaEntrada, 'Frequência (Hz)', 'Fase (graus)');
+            plotGraph('amplitudes-saida', 'Amplitude por Frequência de Saída', data.amplitudePorFrequenciaSaida, 'Frequência (Hz)', 'Amplitude');
+            plotGraph('fases-saida', 'Fase por Frequência de Saída', data.fasePorFrequenciaSaida, 'Frequência (Hz)', 'Fase (graus)');
+        }
+
+        function plotGraph(divId, title, data, xTitle, yTitle) {
             var xValues = Object.keys(data);
             var yValues = Object.values(data);
 
-            var sinalEntrada = {
+            var trace = {
                 x: xValues,
                 y: yValues,
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Sinal de Entrada'
+                name: title
             };
 
             var layout = {
-                title: 'Sinal de Entrada',
+                title: title,
                 xaxis: {
-                    title: 'Tempo (ms)',
-                    range: [0, (xValues[xValues.length - 1] - xValues[0]) / 10] // Faixa padrão dividida por 10
+                    title: xTitle
                 },
                 yaxis: {
-                    title: 'Amplitude',
-                    range: [-2, 2]
+                    title: yTitle
                 }
             };
 
-            Plotly.newPlot('sinal-entrada', [sinalEntrada], layout);
+            Plotly.newPlot(divId, [trace], layout);
         }
     });
 </script>

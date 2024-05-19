@@ -14,7 +14,7 @@ public class CalculoOndaDenteSerra extends CalculoOnda{
     }
 
     @Override
-    public double calculaAmplitude(int harmonicaAtual) {
+    public double calculaAmplitude(int harmonicaAtual, double frequencia) {
         double amplitude = (2 * amplitudeMaxima) / (Math.PI * harmonicaAtual);
         if (harmonicaAtual % 2 == 0) {
             amplitude = -amplitude;
