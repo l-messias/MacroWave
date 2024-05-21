@@ -63,8 +63,8 @@ public class MacroWaveController {
                 respostaFaseCanal = CalculoOndaSenoidalRetificada.getInstance().getFaseDaRespostaEmFrequencia();
                 amplitudePorFrequenciaEntrada = CalculoOndaSenoidalRetificada.getInstance().getAmplitudePorFrequenciaEntrada();
                 fasePorFrequenciaEntrada = CalculoOndaSenoidalRetificada.getInstance().getFasePorFrequenciaEntrada();
-                amplitudePorFrequenciaSaida = CalculoOndaSenoidalRetificada.getInstance().getAmplitudePorFrequenciaEntrada();
-                fasePorFrequenciaSaida = CalculoOndaSenoidalRetificada.getInstance().getFasePorFrequenciaEntrada();
+                amplitudePorFrequenciaSaida = CalculoOndaSenoidalRetificada.getInstance().getAmplitudePorFrequenciaSaida();
+                fasePorFrequenciaSaida = CalculoOndaSenoidalRetificada.getInstance().getFasePorFrequenciaSaida();
             }
             case QUADRADA -> {
                 sinaisEntrada = CalculoOndaQuadrada.getInstance().calcularSinalEntrada(frequencia);
@@ -73,8 +73,8 @@ public class MacroWaveController {
                 respostaFaseCanal = CalculoOndaQuadrada.getInstance().getFaseDaRespostaEmFrequencia();
                 amplitudePorFrequenciaEntrada = CalculoOndaQuadrada.getInstance().getAmplitudePorFrequenciaEntrada();
                 fasePorFrequenciaEntrada = CalculoOndaQuadrada.getInstance().getFasePorFrequenciaEntrada();
-                amplitudePorFrequenciaSaida = CalculoOndaQuadrada.getInstance().getAmplitudePorFrequenciaEntrada();
-                fasePorFrequenciaSaida = CalculoOndaQuadrada.getInstance().getFasePorFrequenciaEntrada();
+                amplitudePorFrequenciaSaida = CalculoOndaQuadrada.getInstance().getAmplitudePorFrequenciaSaida();
+                fasePorFrequenciaSaida = CalculoOndaQuadrada.getInstance().getFasePorFrequenciaSaida();
             }
             case TRIANGULAR -> {
                 sinaisEntrada = CalculoOndaTriangular.getInstance().calcularSinalEntrada(frequencia);
@@ -83,8 +83,8 @@ public class MacroWaveController {
                 respostaFaseCanal = CalculoOndaTriangular.getInstance().getFaseDaRespostaEmFrequencia();
                 amplitudePorFrequenciaEntrada = CalculoOndaTriangular.getInstance().getAmplitudePorFrequenciaEntrada();
                 fasePorFrequenciaEntrada = CalculoOndaTriangular.getInstance().getFasePorFrequenciaEntrada();
-                amplitudePorFrequenciaSaida = CalculoOndaTriangular.getInstance().getAmplitudePorFrequenciaEntrada();
-                fasePorFrequenciaSaida = CalculoOndaTriangular.getInstance().getFasePorFrequenciaEntrada();
+                amplitudePorFrequenciaSaida = CalculoOndaTriangular.getInstance().getAmplitudePorFrequenciaSaida();
+                fasePorFrequenciaSaida = CalculoOndaTriangular.getInstance().getFasePorFrequenciaSaida();
             }
             case DENTEDESERRA -> {
                 sinaisEntrada = CalculoOndaDenteSerra.getInstance().calcularSinalEntrada(frequencia);
@@ -93,8 +93,8 @@ public class MacroWaveController {
                 respostaFaseCanal = CalculoOndaDenteSerra.getInstance().getFaseDaRespostaEmFrequencia();
                 amplitudePorFrequenciaEntrada = CalculoOndaDenteSerra.getInstance().getAmplitudePorFrequenciaEntrada();
                 fasePorFrequenciaEntrada = CalculoOndaDenteSerra.getInstance().getFasePorFrequenciaEntrada();
-                amplitudePorFrequenciaSaida = CalculoOndaDenteSerra.getInstance().getAmplitudePorFrequenciaEntrada();
-                fasePorFrequenciaSaida = CalculoOndaDenteSerra.getInstance().getFasePorFrequenciaEntrada();
+                amplitudePorFrequenciaSaida = CalculoOndaDenteSerra.getInstance().getAmplitudePorFrequenciaSaida();
+                fasePorFrequenciaSaida = CalculoOndaDenteSerra.getInstance().getFasePorFrequenciaSaida();
             }
             default -> {
                 sinaisEntrada = new LinkedHashMap<>();

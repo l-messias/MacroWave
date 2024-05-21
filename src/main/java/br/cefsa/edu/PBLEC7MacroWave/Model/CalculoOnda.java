@@ -37,7 +37,7 @@ public abstract class CalculoOnda {
                 sinalEntrada += calculaSinal(amplitude,n,frequencia,t,fase);
                 if(amplitudePorFrequenciaEntrada.size() <= harmonicas) {
                     amplitudePorFrequenciaEntrada.put(frequencia * n, amplitude);
-                    fasePorFrequenciaEntrada.put(frequencia * n, fase);
+                    fasePorFrequenciaEntrada.put(frequencia * n, Math.toDegrees(fase));
                 }
             }
             mapaAmplitudes.put(t, sinalEntrada);
@@ -58,9 +58,10 @@ public abstract class CalculoOnda {
             double frequenciaN = frequenciaFundamental * n;
             double coeficiente = 1 + Math.pow(((frequenciaN) / frequenciaDeCorte), 2);
             double resposta = 1 / Math.sqrt(coeficiente);
-            double faseResposta = Math.atan(-frequenciaN/ frequenciaDeCorte);
+            double faseResposta = Math.atan2(-frequenciaN, frequenciaDeCorte);
+            double faseEmGraus = Math.toDegrees(faseResposta);
             moduloDaRespostaEmFrequencia.put(frequenciaN, resposta);
-            faseDaRespostaEmFrequencia.put(frequenciaN, faseResposta);
+            faseDaRespostaEmFrequencia.put(frequenciaN, faseEmGraus);
         }
     }
 
@@ -106,11 +107,13 @@ public abstract class CalculoOnda {
                 double frequenciaN = frequencia * n;
                 amplitude = amplitude * moduloDaRespostaEmFrequencia.get(frequenciaN);
                 fase = faseDaRespostaEmFrequencia.get(frequenciaN);
-                sinalEntrada += calculaSinal(amplitude,n,frequencia,t,fase);
                 if(amplitudePorFrequenciaSaida.size() <= harmonicas) {
-                    amplitudePorFrequenciaSaida.put(frequencia * n, amplitude);
-                    fasePorFrequenciaSaida.put(frequencia * n, fase);
+                    amplitudePorFrequenciaSaida.put(frequenciaN, amplitude);
+                    fasePorFrequenciaSaida.put(frequenciaN, fase);
                 }
+                fase = Math.toRadians(fase);
+                sinalEntrada += calculaSinal(amplitude,n,frequencia,t,fase);
+
             }
             mapaAmplitudes.put(t, sinalEntrada);
             t += incrementoTempo;
