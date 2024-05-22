@@ -37,6 +37,9 @@ public abstract class CalculoOnda {
                 sinalEntrada += calculaSinal(amplitude,n,frequencia,t,fase);
                 if(amplitudePorFrequenciaEntrada.size() <= harmonicas) {
                     amplitudePorFrequenciaEntrada.put(frequencia * n, amplitude);
+                    if(amplitude == 0) {
+                        fasePorFrequenciaEntrada.put(frequencia * n, 0.0);
+                    }
                     fasePorFrequenciaEntrada.put(frequencia * n, Math.toDegrees(fase));
                 }
             }
@@ -73,8 +76,10 @@ public abstract class CalculoOnda {
             double coeficienteInf = 1 + Math.pow(((frequenciaN) / frequenciaDeCorteInf), 2);
             double coeficienteSup = 1 + Math.pow(((frequenciaN) / frequenciaDeCorteSup), 2);
             double resposta = (1/frequenciaDeCorteInf) * (frequenciaN / Math.sqrt(coeficienteInf * coeficienteSup));
-            double coeficienteFase = (frequenciaN * (frequenciaDeCorteInf + frequenciaDeCorteSup)) / ((frequenciaDeCorteInf * frequenciaDeCorteSup) - (frequenciaN * frequenciaN));
-            double faseResposta = -Math.PI/2  - Math.atan(coeficienteFase);
+            double coeficienteFaseNumerador = (frequenciaN * (frequenciaDeCorteInf + frequenciaDeCorteSup));
+            double coeficienteFaseDenominador = ((frequenciaDeCorteInf * frequenciaDeCorteSup) - (frequenciaN * frequenciaN));
+            double faseResposta = -Math.PI/2  - Math.atan2(coeficienteFaseNumerador, coeficienteFaseDenominador);
+            faseResposta = Math.toDegrees(faseResposta);
             moduloDaRespostaEmFrequencia.put(frequenciaN, resposta);
             faseDaRespostaEmFrequencia.put(frequenciaN, faseResposta);
         }
@@ -106,13 +111,16 @@ public abstract class CalculoOnda {
                 double amplitude = calculaAmplitude(n, frequencia);
                 double frequenciaN = frequencia * n;
                 amplitude = amplitude * moduloDaRespostaEmFrequencia.get(frequenciaN);
-                fase = faseDaRespostaEmFrequencia.get(frequenciaN);
+                double faseN = -90 + faseDaRespostaEmFrequencia.get(frequenciaN);
                 if(amplitudePorFrequenciaSaida.size() <= harmonicas) {
                     amplitudePorFrequenciaSaida.put(frequenciaN, amplitude);
-                    fasePorFrequenciaSaida.put(frequenciaN, fase);
+                    if(amplitude == 0) {
+                        fasePorFrequenciaSaida.put(frequencia * n, 0.0);
+                    }
+                    fasePorFrequenciaSaida.put(frequenciaN, faseN);
                 }
-                fase = Math.toRadians(fase);
-                sinalEntrada += calculaSinal(amplitude,n,frequencia,t,fase);
+                faseN = Math.toRadians(faseN);
+                sinalEntrada += calculaSinal(amplitude,n,frequencia,t,faseN);
 
             }
             mapaAmplitudes.put(t, sinalEntrada);

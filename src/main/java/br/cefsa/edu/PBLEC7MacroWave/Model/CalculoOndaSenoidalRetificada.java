@@ -19,7 +19,7 @@ public class CalculoOndaSenoidalRetificada extends CalculoOnda{
     @Override
     public double calculaAmplitude(int harmonicaAtual, double frequencia) {
         if (harmonicaAtual % 2 != 0) {
-            return (-2 * amplitudeMaxima) / (Math.PI * ((4 * (harmonicaAtual * harmonicaAtual)) - 1));
+            return (-4 * amplitudeMaxima) / (Math.PI * ((4 * (harmonicaAtual * harmonicaAtual)) - 1));
         }
         return 0;
     }

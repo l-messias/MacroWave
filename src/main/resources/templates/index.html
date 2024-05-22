@@ -37,17 +37,17 @@
 
             <div class="campo">
                 <label for="canal-select">Selecione o tipo de canal</label>
-                <select name="canal-select" id="canal-select">
+                <select name="canal-select" id="canal-select" onchange="exibeCorteInf()">
                     <option th:each="canal: ${canais}" th:value="${canal}" th:text="${canal.value}"></option>
                 </select>
             </div>
 
             <div class="campo" id="freq-sup">
-                <label for="frequencia-corte-sup">Frequência de Corte Superior</label>
+                <label for="frequencia-corte-sup" id="label-freq-corte">Frequência de Corte</label>
                 <input type="number" name="frequencia-corte-sup" id="frequencia-corte-sup"></input>
             </div>
 
-            <div class="hidden" id="freq-inf">
+            <div id="freq-inf" hidden>
                 <label for="frequencia-corte-inf">Frequência de Corte Inferior</label>
                 <input type="number" name="frequencia-corte-inf" id="frequencia-corte-inf"></input>
             </div>
@@ -73,82 +73,7 @@
 </footer>
 
 <!-- Script para enviar o formulário via AJAX -->
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#criar-simulacao").click(function () {
-            var categoria = $("#categoria-select").val();
-            var frequencia = $("#frequencia").val();
-            var canal = $("#canal-select").val();
-            var frequenciaCorteSup = $("#frequencia-corte-sup").val();
-            var frequenciaCorteInf = $("#frequencia-corte-inf").val();
-
-            if (!frequenciaCorteInf) {
-                frequenciaCorteInf = 0; // Define o valor como 0 se estiver vazio
-            }
-
-            if (frequenciaCorteSup == 0) {
-                frequenciaCorteSup = frequencia; // Iguala a frequencia de corte superior à frequencia se for 0
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/criar-simulacao",
-                data: {
-                    categoria: categoria,
-                    frequencia: frequencia,
-                    canal: canal,
-                    frequenciaDeCorteSup: frequenciaCorteSup,
-                    frequenciaDeCorteInf: frequenciaCorteInf
-                },
-                dataType: "json",
-                success: function (response) {
-                    // Exibir gráficos com Plotly.js
-                    exibirGraficos(response);
-                },
-                error: function () {
-                    alert("Erro ao processar a solicitação");
-                }
-            });
-        });
-
-        // Função para exibir gráficos com Plotly.js
-        function exibirGraficos(data) {
-            plotGraph('sinal-entrada', 'Sinal de Entrada', data.sinaisEntrada, 'Tempo (segundos)', 'Amplitude');
-            plotGraph('sinal-saida', 'Sinal de Saída', data.sinaisSaida, 'Tempo (segundos)', 'Amplitude');
-            plotGraph('modulo-resposta', 'Módulo da Resposta em Frequência', data.respostaModuloCanal, 'Frequência (Hz)', 'Módulo');
-            plotGraph('fase-resposta', 'Fase da Resposta em Frequência', data.respostaFaseCanal, 'Frequência (Hz)', 'Fase (graus)');
-            plotGraph('amplitudes', 'Amplitude por Frequência de Entrada', data.amplitudePorFrequenciaEntrada, 'Frequência (Hz)', 'Amplitude');
-            plotGraph('fases', 'Fase por Frequência de Entrada', data.fasePorFrequenciaEntrada, 'Frequência (Hz)', 'Fase (graus)');
-            plotGraph('amplitudes-saida', 'Amplitude por Frequência de Saída', data.amplitudePorFrequenciaSaida, 'Frequência (Hz)', 'Amplitude');
-            plotGraph('fases-saida', 'Fase por Frequência de Saída', data.fasePorFrequenciaSaida, 'Frequência (Hz)', 'Fase (graus)');
-        }
-
-        function plotGraph(divId, title, data, xTitle, yTitle) {
-            var xValues = Object.keys(data);
-            var yValues = Object.values(data);
-
-            var trace = {
-                x: xValues,
-                y: yValues,
-                type: 'scatter',
-                mode: 'lines',
-                name: title
-            };
-
-            var layout = {
-                title: title,
-                xaxis: {
-                    title: xTitle
-                },
-                yaxis: {
-                    title: yTitle
-                }
-            };
-
-            Plotly.newPlot(divId, [trace], layout);
-        }
-    });
-</script>
+<script src="/graficos.js"></script>
 
 </body>
 </html>
