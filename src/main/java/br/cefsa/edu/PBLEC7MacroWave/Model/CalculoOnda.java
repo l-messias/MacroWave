@@ -73,7 +73,7 @@ public abstract class CalculoOnda {
     public void ModuloFiltroPassaFaixas(double frequenciaFundamental, double frequenciaDeCorteSup, double frequenciaDeCorteInf) {
         moduloDaRespostaEmFrequencia = new LinkedHashMap<Double, Double>();
         faseDaRespostaEmFrequencia = new LinkedHashMap<Double, Double>();
-        moduloDaRespostaEmFrequencia.put(0.0, 0.0);
+        moduloDaRespostaEmFrequencia.put(0.0, 1.0);
         faseDaRespostaEmFrequencia.put(0.0, 0.0);
         for(int n = 1; n <= harmonicas; n++){
             double frequenciaN = frequenciaFundamental * n;

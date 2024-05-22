@@ -58,22 +58,31 @@ flex-direction:column;
 margin-bottom: 10px;
 }
 
-.forma-onda input, input[type="number"], select, number {
+.form-onda input, select {
     margin-bottom: 20px;
     border-radius: 20px;
     border: none;
     padding: 10px;
 }
 
-.footer-mw{
+.onda-container {
+    display:flex;
+    flex-direction:column;
+    margin: 20px 10px;
+}
+
+.grafico-onda {
+    width: 1000px;
+    height: 400px;
+}
+
+.footer-mw {
 padding: 0 20px;
 margin-top: auto;
 display:flex;
 }
 
-.hidden{
-display:none;
-}
+
 
 .campo {
 display: flex;

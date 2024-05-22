@@ -37,17 +37,17 @@ $(document).ready(function () {
 
     // Função para exibir gráficos com Plotly.js
     function exibirGraficos(data) {
-        plotGraph('sinal-entrada', 'Sinal de Entrada', data.sinaisEntrada, 'Tempo (segundos)', 'Amplitude', 'lines');
-        plotGraph('sinal-saida', 'Sinal de Saída', data.sinaisSaida, 'Tempo (segundos)', 'Amplitude', 'lines');
-        plotGraph('modulo-resposta', 'Módulo da Resposta em Frequência', data.respostaModuloCanal, 'Frequência (Hz)', 'Módulo', 'lines');
-        plotGraph('fase-resposta', 'Fase da Resposta em Frequência', data.respostaFaseCanal, 'Frequência (Hz)', 'Fase (graus)', 'lines');
-        plotGraph('amplitudes', 'Amplitude por Frequência de Entrada', data.amplitudePorFrequenciaEntrada, 'Frequência (Hz)', 'Amplitude', 'bar');
-        plotGraph('fases', 'Fase por Frequência de Entrada', data.fasePorFrequenciaEntrada, 'Frequência (Hz)', 'Fase (graus)', 'bar');
-        plotGraph('amplitudes-saida', 'Amplitude por Frequência de Saída', data.amplitudePorFrequenciaSaida, 'Frequência (Hz)', 'Amplitude', 'bar');
-        plotGraph('fases-saida', 'Fase por Frequência de Saída', data.fasePorFrequenciaSaida, 'Frequência (Hz)', 'Fase (graus)', 'bar');
+        plotGraph('sinal-entrada', 'Sinal de Entrada', data.sinaisEntrada, 'Tempo (segundos)', 'Amplitude', 'lines', 10);
+        plotGraph('sinal-saida', 'Sinal de Saída', data.sinaisSaida, 'Tempo (segundos)', 'Amplitude', 'lines', 10);
+        plotGraph('modulo-resposta', 'Módulo da Resposta em Frequência', data.respostaModuloCanal, 'Frequência (Hz)', 'Módulo', 'lines', 10);
+        plotGraph('fase-resposta', 'Fase da Resposta em Frequência', data.respostaFaseCanal, 'Frequência (Hz)', 'Fase (graus)', 'lines', 10);
+        plotGraph('amplitudes', 'Amplitude por Frequência de Entrada', data.amplitudePorFrequenciaEntrada, 'Frequência (Hz)', 'Amplitude', 'bar', 5);
+        plotGraph('fases', 'Fase por Frequência de Entrada', data.fasePorFrequenciaEntrada, 'Frequência (Hz)', 'Fase (graus)', 'bar', 5);
+        plotGraph('amplitudes-saida', 'Amplitude por Frequência de Saída', data.amplitudePorFrequenciaSaida, 'Frequência (Hz)', 'Amplitude', 'bar', 5);
+        plotGraph('fases-saida', 'Fase por Frequência de Saída', data.fasePorFrequenciaSaida, 'Frequência (Hz)', 'Fase (graus)', 'bar', 5);
     }
 
-    function plotGraph(divId, title, data, xTitle, yTitle, type) {
+    function plotGraph(divId, title, data, xTitle, yTitle, type, range) {
         var xValues = Object.keys(data);
         var yValues = Object.values(data);
         var trace;
@@ -65,10 +65,11 @@ $(document).ready(function () {
                 x: xValues,
                 y: yValues,
                 type: 'bar',
-                name: title
+                name: title,
+                width: 2
             };
         }
-
+        
         var layout = {
             title: title,
             xaxis: {
@@ -79,7 +80,12 @@ $(document).ready(function () {
             }
         };
 
+        if (range > 0) {
+            layout.xaxis.range = [0, (xValues[xValues.length - 1] - xValues[0]) / range];
+        }
+
         Plotly.newPlot(divId, [trace], layout);
+        document.getElementById(divId).classList.add("grafico-onda");
     }
 });
 
@@ -89,12 +95,12 @@ function exibeCorteInf() {
     if (canal === "PASSAFAIXAS") {
         document.getElementById("freq-inf").hidden = false;
         document.getElementById("freq-inf").classList.add("campo");
-        document.getElementById("label-freq-corte").innerText = "Frequência de Corte Superior";
+        document.getElementById("label-freq-corte").innerText = "Frequência de Corte Superior em kHz (1kHz - 100kHz)";
     }
     else
     {
         document.getElementById("freq-inf").classList.remove("campo");
         document.getElementById("freq-inf").hidden = true;
-        document.getElementById("label-freq-corte").innerText = "Frequência de Corte";
+        document.getElementById("label-freq-corte").innerText = "Frequência de Corte em kHz (1kHz - 100kHz)";
     }
 };
