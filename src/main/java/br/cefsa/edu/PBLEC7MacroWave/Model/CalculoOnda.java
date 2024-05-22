@@ -57,6 +57,8 @@ public abstract class CalculoOnda {
     public void ModuloFiltroPassaBaixas(double frequenciaFundamental, double frequenciaDeCorte) {
         moduloDaRespostaEmFrequencia = new LinkedHashMap<Double, Double>();
         faseDaRespostaEmFrequencia = new LinkedHashMap<Double, Double>();
+        moduloDaRespostaEmFrequencia.put(0.0, 1.0);
+        faseDaRespostaEmFrequencia.put(0.0, 0.0);
         for(int n = 1; n <= harmonicas; n++){
             double frequenciaN = frequenciaFundamental * n;
             double coeficiente = 1 + Math.pow(((frequenciaN) / frequenciaDeCorte), 2);
@@ -71,6 +73,8 @@ public abstract class CalculoOnda {
     public void ModuloFiltroPassaFaixas(double frequenciaFundamental, double frequenciaDeCorteSup, double frequenciaDeCorteInf) {
         moduloDaRespostaEmFrequencia = new LinkedHashMap<Double, Double>();
         faseDaRespostaEmFrequencia = new LinkedHashMap<Double, Double>();
+        moduloDaRespostaEmFrequencia.put(0.0, 0.0);
+        faseDaRespostaEmFrequencia.put(0.0, 0.0);
         for(int n = 1; n <= harmonicas; n++){
             double frequenciaN = frequenciaFundamental * n;
             double coeficienteInf = 1 + Math.pow(((frequenciaN) / frequenciaDeCorteInf), 2);
