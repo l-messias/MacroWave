@@ -3,11 +3,6 @@ package br.cefsa.edu.PBLEC7MacroWave.Model;
 public class CalculoOndaSenoidalRetificada extends CalculoOnda{
     private static CalculoOndaSenoidalRetificada instance;
 
-    @Override
-    public double sinalInicial() {
-        return (2 * amplitudeMaxima) / Math.PI;
-    }
-
     public static CalculoOndaSenoidalRetificada getInstance() {
         if (instance == null) {
             instance = new CalculoOndaSenoidalRetificada();
@@ -15,19 +10,20 @@ public class CalculoOndaSenoidalRetificada extends CalculoOnda{
         return instance;
     }
 
+    //Esse tipo de onda possui um componente a0 diferente de 0
+    @Override
+    public double sinalInicial() {
+        return (2 * getAmplitudeMaxima()) / Math.PI;
+    }
 
     @Override
     public double calculaAmplitude(int harmonicaAtual, double frequencia) {
-        if (harmonicaAtual % 2 != 0) {
-            return (-4 * amplitudeMaxima) / (Math.PI * ((4 * (harmonicaAtual * harmonicaAtual)) - 1));
+        //Somente as harmônicas ímpares são consideradas
+        if (harmonicaAtual % 2 == 0) {
+            return 0;
         }
-        return 0;
+        int nQuadrado = harmonicaAtual * harmonicaAtual;
+        return (4 * getAmplitudeMaxima()) / ((1 - 4 * nQuadrado) * Math.PI);
     }
 
-        /*
-    @Override
-    public  double calculaSinal(double amplitude,int n, double frequencia, double t, double fase){
-        return (amplitude * Math.cos(2 * Math.PI * n * frequencia * t + fase));
-    }
-     */
 }
