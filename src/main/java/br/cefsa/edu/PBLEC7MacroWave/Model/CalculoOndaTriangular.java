@@ -14,13 +14,17 @@ public class CalculoOndaTriangular extends CalculoOnda {
     }
     @Override
     public double calculaAmplitude(int harmonicaAtual, double frequencia) {
-        double amplitude = 8 * amplitudeMaxima / (Math.PI * Math.PI * harmonicaAtual * harmonicaAtual);
-        if(harmonicaAtual % 2 != 0 ) {
-            if ((harmonicaAtual - 1) / 2 % 2 != 0) {
-                amplitude = -amplitude;
-            }
-            return amplitude;
+
+        //Harmônicas pares terão amplitude de 0
+        if(harmonicaAtual % 2 == 0 ) {
+            return 0;
         }
-        return 0;
+
+        double amplitude = 8 * getAmplitudeMaxima() / (Math.PI * Math.PI * harmonicaAtual * harmonicaAtual);
+
+        if ((harmonicaAtual - 1) / 2 % 2 != 0) {
+            amplitude = -amplitude;
+        }
+        return amplitude;
     }
 }

@@ -13,9 +13,7 @@ public class CalculoOndaQuadrada extends CalculoOnda {
     }
     @Override
     public double calculaAmplitude(int harmonicaAtual, double frequencia) {
-        if (harmonicaAtual % 2 != 0) {
-            return 4 * amplitudeMaxima / (Math.PI * harmonicaAtual);
-        }
-        return 0;
+        //Somente as harmônicas ímpares são consideradas.
+        return harmonicaAtual % 2 == 0 ? 0 : (4 * getAmplitudeMaxima()) / (Math.PI * harmonicaAtual);
     }
 }
