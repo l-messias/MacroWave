@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="stylesHome.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <nav>
+            <ul>
+                <li><a th:href="home">Home</a></li>
+                <li><a th:href="index">Simulação de Ondas</a></li>
+                <li><a th:href="sobre">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1 class="animated-title">Bem-vindo à MacroWave</h1>
+    </main>
+    <footer>
+        <p>MacroWave</p>
+    </footer>
+</div>
+</body>
+</html>
