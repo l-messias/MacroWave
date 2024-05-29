@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <title>MacroWave - Home</title>
     <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="/stylesHome.css">
+
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<!-- Header with Navbar -->
-<header class="header-mw">
-    <nav class="navbar">
-        <ul class="navbar-links">
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="home">Home</a></li>
+            <li><a th:href="@{/}">Simulação de Ondas de Sinal</a></li>
+            <li><a th:href="sobre">Sobre</a></li>
         </ul>
     </nav>
 </header>
@@ -19,7 +23,7 @@
 <!-- Main Container -->
 <main class="main-mw">
     <div class="container-mw">
-        <h1>MacroWave - Simulação de Ondas de Sinal</h1>
+        <h1 class="animated-title">Simulação de Ondas de Sinal</h1><br>
         <div class="form-onda" id="form-onda">
 
             <div class="campo">
@@ -54,6 +58,8 @@
 
             <button class="btn-mw" id="criar-simulacao">Criar Simulação</button>
         </div>
+        <br>
+        <br>
         <div class="onda-container" id="onda-container">
             <div id="sinal-entrada"></div>
             <div id="sinal-saida"></div>
@@ -66,14 +72,14 @@
         </div>
     </div>
 </main>
-<a th:href="home">Home</a>
-<!-- Footer -->
-<footer class="footer-mw">
-    <p>&copy; 2024 MacroWave</p>
-</footer>
 
 <!-- Script para enviar o formulário via AJAX -->
 <script src="/graficos.js"></script>
 
 </body>
+<footer>
+    <p>MacroWave</p>
+    <p>Faculdade Engenheiro Salvador Arena</p>
+</footer>
+
 </html>

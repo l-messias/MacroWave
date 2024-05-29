@@ -2,26 +2,12 @@
 
 :root{
 --fonte-principal: 'Roboto', sans-serif;
---cor-background: hsl(27 30% 93%);
+--cor-background: hsl(0, 0%, 17%);
 --cor-primaria: hsl(0, 80%, 100%);
 --cor-secundaria: hsl(0, 70%, 100%);
---cor-texto-1: hsl(10 40% 15%);
+--cor-texto-1: hsl(0, 0%, 100%);
 --cor-texto-2: hsl(0, 0%, 20%);
 --cor-texto-3: hsl(0, 0%, 30%);
-}
-
-body {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    font-family: var(--fonte-principal);
-    font-weight: 400;
-    font-style: normal;
-    font-size: 16px;
-    color: var(--cor-texto-1);
-    background-color: var(--cor-background);
-    min-height: 100vh;
-    flex-direction: column;
 }
 
 .header-mw{
@@ -94,7 +80,7 @@ flex-direction: column;
     align-self: center;
     padding: 10px;
     border: none;
-    background-color: hsl(0 30% 20% / 1);
+    background-color: hsl(293, 100%, 2%);
     border-radius: 20px;
     color: hsl(0 0% 100%);
     font-weight: 600;
