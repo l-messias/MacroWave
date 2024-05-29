@@ -28,9 +28,9 @@ public abstract class CalculoOnda {
     public void preencheInformacoes(double frequencia) {
         periodo = 1 / frequencia;
         duracao = periodo * coeficienteDuracao;
-        fase =  - Math.PI / 2;
+        fase = -Math.PI/ 2;
         //Ao final de cada loop, será incrementando ao instante 't' até que alcance a duração. Define, portanto, a quantidade de amostras.
-        incrementoTempo = periodo / (50 * coeficienteDuracao);
+        incrementoTempo = periodo / (100 * coeficienteDuracao);
     }
 
     //Instanciando os mapas para posteriormente preenchê-los
@@ -99,7 +99,7 @@ public abstract class CalculoOnda {
         for(double t = 0; t < duracao; t+= incrementoTempo)
         {
             //Define o componente a0
-            double sinalEntrada = sinalInicial();
+            double sinalSaida = sinalInicial();
 
             //Soma dos componentes an
             for(int n = 1; n <= harmonicas; n++)
@@ -121,12 +121,12 @@ public abstract class CalculoOnda {
                 //Convertida para radianos
                 faseN = Math.toRadians(faseN);
 
-                sinalEntrada += calculaSinal(amplitude,n,frequencia,t,faseN);
+                sinalSaida += calculaSinal(amplitude,n,frequencia,t,faseN);
 
             }
 
             //Insere no mapa a Amplitude do Sinal com base no instante 't'
-            mapaAmplitudes.put(t, sinalEntrada);
+            mapaAmplitudes.put(t, sinalSaida);
         }
 
         return mapaAmplitudes;

@@ -13,7 +13,7 @@ public class CalculoOndaSenoidalRetificada extends CalculoOnda{
     //Esse tipo de onda possui um componente a0 diferente de 0
     @Override
     public double sinalInicial() {
-        return (2 * getAmplitudeMaxima()) / Math.PI;
+        return (2.0 * getAmplitudeMaxima()) / Math.PI;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class CalculoOndaSenoidalRetificada extends CalculoOnda{
             return 0;
         }
         int nQuadrado = harmonicaAtual * harmonicaAtual;
-        return (4 * getAmplitudeMaxima()) / ((1 - 4 * nQuadrado) * Math.PI);
+        return (4.0 * getAmplitudeMaxima()) / ((1 - 4 * nQuadrado) * Math.PI);
     }
 
 }
