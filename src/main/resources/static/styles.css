@@ -79,6 +79,7 @@ display:flex;
 .campo {
 display: flex;
 flex-direction: column;
+    width: 100%;
 }
 
 .btn-mw {
@@ -92,4 +93,37 @@ flex-direction: column;
     font-weight: 600;
     font-size: 1.1em;
 }
+.three-dots {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 50px; /* Altura da área da animação */
+}
+
+.three-dots div {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    background-color: rgba(255, 255, 255, 1); /* Cor branca */
+    border-radius: 50%;
+    animation: three-dots 1.4s infinite ease-in-out both;
+}
+
+.three-dots div:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.three-dots div:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes three-dots {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
 
