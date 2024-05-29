@@ -1,0 +1,94 @@
+:root {
+    --background-color: #2b2b2b; /* Cor de fundo */
+    --text-color: #fff; /* Cor do texto */
+    --header-footer-background: #080009; /* Cor de fundo do header e footer */
+    --link-hover-color: #ff00ff; /* Cor do efeito de hover nos links */
+}
+
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+header {
+    background-color: var(--header-footer-background);
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color); /* Adiciona cor de hover */
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Permite que o main cresça para preencher o espaço disponível */
+    text-align: center;
+}
+
+.animated-title {
+    margin-bottom: 20px;
+    font-size: 36px;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px var(--text-color), 0 0 20px var(--text-color), 0 0 30px var(--link-hover-color), 0 0 40px var(--link-hover-color), 0 0 50px var(--link-hover-color), 0 0 60px var(--link-hover-color), 0 0 70px var(--link-hover-color);
+    }
+    to {
+        text-shadow: 0 0 20px var(--text-color), 0 0 30px var(--link-hover-color), 0 0 40px var(--link-hover-color), 0 0 50px var(--link-hover-color), 0 0 60px var(--link-hover-color), 0 0 70px var(--link-hover-color), 0 0 80px var(--link-hover-color);
+    }
+}
+
+footer {
+    background-color: var(--header-footer-background);
+    color: var(--text-color);
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto; /* Empurra o footer para o final da página */
+}
+.about-text {
+    text-align: justify;
+    text-align-last: left;
+    line-height: 1; /* Espaçamento entre linhas */
+    max-width: 800px; /* Limite de largura para melhor leitura */
+    margin: 0 auto; /* Centraliza o texto dentro do main */
+    white-space: pre-line; /* Mantém as quebras de linha */
+}

@@ -31,7 +31,14 @@ public class MacroWaveController {
     public String wave() {
         return "wave";
     }
-
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+    @GetMapping("/sobre")
+    public String sobre() {
+        return "sobre";
+    }
     @GetMapping("/form-onda")
     public String formOnda() {
         return "form-onda";
