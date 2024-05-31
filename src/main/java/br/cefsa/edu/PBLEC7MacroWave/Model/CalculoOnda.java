@@ -6,9 +6,9 @@ import java.util.Map;
 public abstract class CalculoOnda {
 
     //Definido pelo programador
-    private final int harmonicas = 100;
-    private final double amplitudeMaxima = 1;
-    private double coeficienteDuracao = 100;
+    public final int HARMONICAS = 100;
+    public final double AMPLITUDEMAXIMA = 1;
+    public double coeficienteDuracao = 100;
 
     //Com base nos dados do usuário
     private double periodo;
@@ -24,13 +24,35 @@ public abstract class CalculoOnda {
     private Map<Double, Double> amplitudePorFrequenciaSaida;
     private Map<Double, Double> fasePorFrequenciaSaida;
 
+
+    public void setFase(double fase) {
+        this.fase = fase;
+    }
+
+    //Fase padrão para ondas quadradas, dentes-de-serra e triangulares
+    public void defineFase() {
+        setFase(-Math.PI/2);
+    }
+
+    public void definePeriodo(double frequencia) {
+        this.periodo = 1 / frequencia;
+    }
+
+    public void defineDuracao() {
+        this.duracao = periodo * coeficienteDuracao;
+    }
+
+    //Ao final de cada loop, será incrementando ao instante 't' até que alcance a duração. Define, portanto, a quantidade de amostras.
+    public void defineIncrementoTempo() {
+        this.incrementoTempo = periodo / (10 * coeficienteDuracao);
+    }
+
     //Definindo os valores com base na frequência do usuário
     public void preencheInformacoes(double frequencia) {
-        periodo = 1 / frequencia;
-        duracao = periodo * coeficienteDuracao;
-        fase = -Math.PI/ 2;
-        //Ao final de cada loop, será incrementando ao instante 't' até que alcance a duração. Define, portanto, a quantidade de amostras.
-        incrementoTempo = periodo / (100 * coeficienteDuracao);
+        defineFase();
+        definePeriodo(frequencia);
+        defineDuracao();
+        defineIncrementoTempo();
     }
 
     //Instanciando os mapas para posteriormente preenchê-los
@@ -61,7 +83,7 @@ public abstract class CalculoOnda {
             double sinalEntrada = sinalInicial();
 
             //Soma dos componentes an
-            for(int n = 1; n <= harmonicas; n++)
+            for(int n = 1; n <= HARMONICAS; n++)
             {
                 //Define a amplitude para o tipo de onda escolhido
                 double amplitude = calculaAmplitude(n, frequencia);
@@ -86,14 +108,10 @@ public abstract class CalculoOnda {
         Map<Double, Double> mapaAmplitudes = new LinkedHashMap<>();
 
         //Calcula a resposta com base no canal escolhido pelo usuário;
-        if(canal == Canal.PASSABAIXAS)
-        {
-            ModuloFiltroPassaBaixas(frequencia, frequenciaDeCorteSup);
-        }
-        if(canal == Canal.PASSAFAIXAS)
-        {
-            ModuloFiltroPassaFaixas(frequencia, frequenciaDeCorteSup, frequenciaDeCorteInf);
-        }
+
+
+        //Valores da resposta caso a frequência seja 0
+        preencheMapaResposta(0, 1.0, 0);
 
         //Série de Fourier para um certo número de períodos definido anteriormente (Duração = Período * Coeficiente de Duração)
         for(double t = 0; t < duracao; t+= incrementoTempo)
@@ -101,25 +119,43 @@ public abstract class CalculoOnda {
             //Define o componente a0
             double sinalSaida = sinalInicial();
 
+            //Variáveis da resposta são instanciadas com valores placeholder
+            double moduloResposta = 1;
+            double faseResposta = 0;
+
             //Soma dos componentes an
-            for(int n = 1; n <= harmonicas; n++)
+            for(int n = 1; n <= HARMONICAS; n++)
             {
                 double amplitude = calculaAmplitude(n, frequencia);
 
                 //fn = frequencia fundamental multiplicada pelo número da harmonica atual
                 double frequenciaN = frequencia * n;
 
+                //Os valores da resposta são então redefinidos com base no canal escolhido
+                switch(canal) {
+                    case PASSABAIXAS:
+                        moduloResposta = moduloFiltroPassaBaixas(frequenciaN, frequenciaDeCorteSup);
+                        faseResposta = faseFiltroPassaBaixas(frequenciaN, frequenciaDeCorteSup);
+                        break;
+                    case PASSAFAIXAS:
+                        moduloResposta = moduloFiltroPassaFaixas(frequenciaN, frequenciaDeCorteSup, frequenciaDeCorteInf);
+                        faseResposta = faseFiltroPassaFaixas(frequenciaN, frequenciaDeCorteSup, frequenciaDeCorteInf);
+                        break;
+                    default:
+                        break;
+                }
+
                 //A amplitude é multiplicada pelo módulo da resposta do canal com base na frequência
-                amplitude = amplitude * moduloDaRespostaEmFrequencia.get(frequenciaN);
+                amplitude = amplitude * moduloResposta;
 
                 //A fase é somada pela resposta do canal com base na frequência
-                double faseN = -90 + faseDaRespostaEmFrequencia.get(frequenciaN);
+                double faseN = fase + faseResposta;
+
+                //Preenche mapas referentes a resposta do canal com base na frequencia (fn) atual e as frequências de corte.
+                preencheMapaResposta(frequenciaN, moduloResposta, Math.toDegrees(faseResposta));
 
                 //Preenche mapas referentes ao sinal de saída com base na frequencia (fn) atual;
-                preencheAmplitudeFasePorFrequencia(false, amplitude, frequencia, n, faseN);
-
-                //Convertida para radianos
-                faseN = Math.toRadians(faseN);
+                preencheAmplitudeFasePorFrequencia(false, amplitude, frequencia, n, Math.toDegrees(faseN));
 
                 sinalSaida += calculaSinal(amplitude,n,frequencia,t,faseN);
 
@@ -145,13 +181,13 @@ public abstract class CalculoOnda {
     //Preenche os gráficos de Amplitude e Fase de Entrada ou Saída com base na Frequência
     public void preencheAmplitudeFasePorFrequencia(boolean entrada, double amplitude, double frequencia, int n, double faseN) {
         if (entrada) {
-            if (amplitudePorFrequenciaEntrada.size() <= harmonicas) {
+            if (amplitudePorFrequenciaEntrada.size() <= HARMONICAS) {
                 amplitudePorFrequenciaEntrada.put(frequencia * n, amplitude);
                 //Se a amplitude for 0, a fase também é 0.
-                fasePorFrequenciaEntrada.put(frequencia * n, amplitude == 0 ? 0.0 : Math.toDegrees(faseN));
+                fasePorFrequenciaEntrada.put(frequencia * n, amplitude == 0 ? 0.0 : faseN);
             }
         } else {
-            if (amplitudePorFrequenciaSaida.size() <= harmonicas) {
+            if (amplitudePorFrequenciaSaida.size() <= HARMONICAS) {
                 amplitudePorFrequenciaSaida.put(frequencia * n, amplitude);
                 fasePorFrequenciaSaida.put(frequencia * n, amplitude == 0 ? 0.0 : faseN);
             }
@@ -159,35 +195,35 @@ public abstract class CalculoOnda {
     }
 
     //Resposta do canal passa-baixas com base na fórmula ilustrada no documento do PBL
-    public void ModuloFiltroPassaBaixas(double frequenciaFundamental, double frequenciaDeCorte) {
-        moduloDaRespostaEmFrequencia.put(0.0, 1.0);
-        faseDaRespostaEmFrequencia.put(0.0, 0.0);
-        for(int n = 1; n <= harmonicas; n++){
-            double frequenciaN = frequenciaFundamental * n;
+    public double moduloFiltroPassaBaixas(double frequenciaN, double frequenciaDeCorte) {
             double coeficiente = 1 + Math.pow(((frequenciaN) / frequenciaDeCorte), 2);
-            double resposta = 1 / Math.sqrt(coeficiente);
-            double faseResposta = Math.atan2(-frequenciaN, frequenciaDeCorte);
-            double faseEmGraus = Math.toDegrees(faseResposta);
-            moduloDaRespostaEmFrequencia.put(frequenciaN, resposta);
-            faseDaRespostaEmFrequencia.put(frequenciaN, faseEmGraus);
-        }
+            return 1 / Math.sqrt(coeficiente);
+    }
+
+    //Fase da resposta do canal passa-baixas com base na fórmula ilustrada no documento do PBL
+    public double faseFiltroPassaBaixas(double frequenciaN, double frequenciaDeCorte) {
+        return Math.atan2(-frequenciaN, frequenciaDeCorte);
     }
 
     //Resposta do canal passa-faixas com base na fórmula ilustrada no documento do PBL
-    public void ModuloFiltroPassaFaixas(double frequenciaFundamental, double frequenciaDeCorteSup, double frequenciaDeCorteInf) {
-        moduloDaRespostaEmFrequencia.put(0.0, 1.0);
-        faseDaRespostaEmFrequencia.put(0.0, 0.0);
-        for(int n = 1; n <= harmonicas; n++){
-            double frequenciaN = frequenciaFundamental * n;
-            double coeficienteInf = 1 + Math.pow(((frequenciaN) / frequenciaDeCorteInf), 2);
-            double coeficienteSup = 1 + Math.pow(((frequenciaN) / frequenciaDeCorteSup), 2);
-            double resposta = (1/frequenciaDeCorteInf) * (frequenciaN / Math.sqrt(coeficienteInf * coeficienteSup));
-            double coeficienteFaseNumerador = (frequenciaN * (frequenciaDeCorteInf + frequenciaDeCorteSup));
-            double coeficienteFaseDenominador = ((frequenciaDeCorteInf * frequenciaDeCorteSup) - (frequenciaN * frequenciaN));
-            double faseResposta = -Math.PI/2  - Math.atan2(coeficienteFaseNumerador, coeficienteFaseDenominador);
-            faseResposta = Math.toDegrees(faseResposta);
+    public double moduloFiltroPassaFaixas(double frequenciaN, double frequenciaDeCorteSup, double frequenciaDeCorteInf) {
+        double coeficienteInf = 1 + Math.pow(((frequenciaN) / frequenciaDeCorteInf), 2);
+        double coeficienteSup = 1 + Math.pow(((frequenciaN) / frequenciaDeCorteSup), 2);
+        return (1/frequenciaDeCorteInf) * (frequenciaN / Math.sqrt(coeficienteInf * coeficienteSup));
+    }
+
+    //Fase da resposta do canal passa-faixas com base na fórmula ilustrada no documento do PBL
+    public double faseFiltroPassaFaixas(double frequenciaN, double frequenciaDeCorteSup, double frequenciaDeCorteInf) {
+        double coeficienteFaseNumerador = (frequenciaN * (frequenciaDeCorteInf + frequenciaDeCorteSup));
+        double coeficienteFaseDenominador = ((frequenciaDeCorteInf * frequenciaDeCorteSup) - (frequenciaN * frequenciaN));
+        return -Math.PI/2  - Math.atan2(coeficienteFaseNumerador, coeficienteFaseDenominador);
+    }
+
+    //Preenche os mapas da resposta com base nos valores calculados
+    public void preencheMapaResposta(double frequenciaN, double resposta, double faseEmGraus) {
+        if(moduloDaRespostaEmFrequencia.size() <= HARMONICAS) {
             moduloDaRespostaEmFrequencia.put(frequenciaN, resposta);
-            faseDaRespostaEmFrequencia.put(frequenciaN, faseResposta);
+            faseDaRespostaEmFrequencia.put(frequenciaN, faseEmGraus);
         }
     }
 
@@ -218,7 +254,7 @@ public abstract class CalculoOnda {
         return fasePorFrequenciaSaida;
     }
 
-    public double getAmplitudeMaxima() {
-        return amplitudeMaxima;
+    public double getAMPLITUDEMAXIMA() {
+        return AMPLITUDEMAXIMA;
     }
 }
