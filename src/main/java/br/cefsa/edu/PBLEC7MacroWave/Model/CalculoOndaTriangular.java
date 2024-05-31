@@ -1,8 +1,5 @@
 package br.cefsa.edu.PBLEC7MacroWave.Model;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public class CalculoOndaTriangular extends CalculoOnda {
     private static CalculoOndaTriangular instance;
 
@@ -20,11 +17,10 @@ public class CalculoOndaTriangular extends CalculoOnda {
             return 0;
         }
 
-        double amplitude = 8 * getAmplitudeMaxima() / (Math.PI * Math.PI * harmonicaAtual * harmonicaAtual);
-
-        if ((harmonicaAtual - 1) / 2 % 2 != 0) {
-            amplitude = -amplitude;
-        }
-        return amplitude;
+        double expoente = ((double)harmonicaAtual - 1)/2;
+        double coeficiente = Math.pow(-1, expoente);
+        double nQuadrado = Math.pow(harmonicaAtual, 2);
+        double piQuadrado = Math.pow(Math.PI, 2);
+        return (8 * getAMPLITUDEMAXIMA() * coeficiente) / (piQuadrado * nQuadrado);
     }
 }

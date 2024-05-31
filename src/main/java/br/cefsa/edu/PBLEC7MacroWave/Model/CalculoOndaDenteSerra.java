@@ -1,8 +1,5 @@
 package br.cefsa.edu.PBLEC7MacroWave.Model;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public class CalculoOndaDenteSerra extends CalculoOnda{
     private static CalculoOndaDenteSerra instance;
 
@@ -15,10 +12,7 @@ public class CalculoOndaDenteSerra extends CalculoOnda{
 
     @Override
     public double calculaAmplitude(int harmonicaAtual, double frequencia) {
-        double amplitude = (2 * getAmplitudeMaxima()) / (Math.PI * harmonicaAtual);
-        if (harmonicaAtual % 2 == 0) {
-            amplitude = -amplitude;
-        }
-        return amplitude;
+        double coeficiente = Math.pow(-1,(harmonicaAtual + 1));
+        return (2 * getAMPLITUDEMAXIMA() * coeficiente) / (Math.PI * harmonicaAtual);
     }
 }
