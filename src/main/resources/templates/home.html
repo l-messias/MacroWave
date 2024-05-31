@@ -3,28 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="stylesHome.css">
+    <title>MacroWave - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" th:href="@{/mw-icon.ico}" type="image/x-icon">
 </head>
 <body>
-<div class="container">
-    <header>
-        <nav>
+
+    <header class="header-mw">
+
+        <div class="marca-mw cor-complementar">
+            <img src="mw-logo.png" class="logo">
+        </div>
+
+        <nav class="navbar">
             <ul>
-                <li><a th:href="home">Home</a></li>
+                <li><a class="cor-complementar" th:href="home">Home</a></li>
                 <li><a th:href="@{/}">Simulação de Ondas de Sinal</a></li>
                 <li><a th:href="sobre">Sobre</a></li>
             </ul>
         </nav>
+
+        <div class="espaco"></div>
+
     </header>
-    <main>
-        <h1 class="animated-title">Bem-vindo à MacroWave</h1>
+
+    <main class="main-mw">
+
+        <h1 class="cor-complementar">Bem-vindo à MacroWave</h1>
+
     </main>
-    <footer>
+
+    <footer class="footer-mw">
+
         <p>MacroWave</p>
+        <p> - </p>
         <p>Faculdade Engenheiro Salvador Arena</p>
+        <p> - </p>
+        <p>2024</p>
 
     </footer>
-</div>
+
 </body>
 </html>

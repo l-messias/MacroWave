@@ -2,7 +2,11 @@
 
 :root{
 --fonte-principal: 'Roboto', sans-serif;
---cor-background: hsl(0, 0%, 17%);
+--cor-background: hsl(225 35% 10% / 1);
+--cor-separador: hsl(225 25% 50% / 20%);
+--cor-background-1: hsl(232, 6%, 8%);
+--cor-complementar: hsl(27 100% 70%);
+--cor-header: hsl(0, 0%, 4%);
 --cor-primaria: hsl(0, 80%, 100%);
 --cor-secundaria: hsl(0, 70%, 100%);
 --cor-texto-1: hsl(0, 0%, 100%);
@@ -10,21 +14,93 @@
 --cor-texto-3: hsl(0, 0%, 30%);
 }
 
-.header-mw{
-display: flex;
+body{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    background-color: var(--cor-background);
+    font-family: var(--fonte-principal);
+    font-size: 16px;
+    color: var(--cor-texto-1);
+    min-height: 100vh;
 }
 
-.navbar{
-display:flex;
+.cor-complementar{
+    color: var(--cor-complementar);
+}
+
+.header-mw {
+
+    color: var(--cor-texto-1);
+    display: flex;
+    padding: 10px 10px;
+    justify-content: space-between;
+    height: 50px;
+    /*
+    background-color: var(--cor-header);
+    box-shadow: 11px 0px 10px 0px hsl(0deg 0% 0% / 40%);
+    border-bottom: 2px solid hsl(225 25% 20% / 1);
+    */
+}
+
+.logo {
+    width: 60px;
+}
+
+.navbar {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 30px;
+}
+
+.marca-mw {
+    display: flex;
+    margin-left: 10px;
+    width: 85px;
+    align-items: center;
+    justify-content: center;
+}
+
+.espaco {
+    margin-right: 10px;
+    width: 85px;
+}
+
+.navbar ul li {
+    display: inline;
+    font-weight: 600;
+}
+
+.navbar ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.navbar ul li a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color); /* Adiciona cor de hover */
 }
 
 .navbar-links{
 display:flex;
 }
 
-.main-mw{
-display:flex;
-flex-direction:column;
+.main-mw {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-content: center;
+    justify-content: center;
 }
 
 .main-mw h1{
@@ -69,12 +145,18 @@ margin-bottom: 10px;
 }
 
 .footer-mw {
-padding: 0 20px;
-margin-top: auto;
-display:flex;
+    color: var(--cor-texto-1);
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 20px;
+    border-top: 2px solid hsl(225deg 25% 50% / 20%);
+    /*
+    background-color: var(--cor-header);
+    */
 }
-
-
 
 .campo {
 display: flex;
