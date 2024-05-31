@@ -1,13 +1,13 @@
 $(document).ready(function () {
     $("#criar-simulacao").click(function () {
+
         let categoria = $("#categoria-select").val();
         let frequencia = $("#frequencia").val();
         let canal = $("#canal-select").val();
         let frequenciaCorteSup = $("#frequencia-corte-sup").val();
         let frequenciaCorteInf = $("#frequencia-corte-inf").val();
-
         let valido = validarDados();
-
+        document.getElementById("loadingDots").style.display = "flex";
         if (!frequenciaCorteInf) {
             frequenciaCorteInf = 0; // Define o valor como 0 se estiver vazio
         }
@@ -31,9 +31,12 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (response) {
                     // Exibir gráficos com Plotly.js
+                    document.getElementById("loadingDots").style.display = "none";
                     exibirGraficos(response);
                 },
                 error: function () {
+                    document.getElementById("loadingDots").style.display = "none";
+
                     alert("Erro ao processar a solicitação");
                 }
             });
@@ -124,7 +127,7 @@ $(document).ready(function () {
             },
             width: 930,
             height: 400,
-            paper_bgcolor: 'rgba(0,0,0,0)',  // Define o fundo do gráfico como transparente
+            paper_bgcolor: 'rgba(255,255,255,0)',  // Define o fundo do gráfico como transparente
             plot_bgcolor: 'rgba(0,0,0,0)'    // Define a área do traçado como transparente
         };
 

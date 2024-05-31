@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre</title>
+    <link rel="stylesheet" href="stylesHome.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <nav>
+            <ul>
+                <li><a th:href="home">Home</a></li>
+                <li><a th:href="@{/}">Simulação de Ondas de Sinal</a></li>
+                <li><a th:href="sobre">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1 class="animated-title">Sobre</h1>
+        <p class="about-text">
+            Project Based Learning desenvolvido com as disciplinas:<br>
+            - Linguagem de Programação III<br>
+            - Engenharia de Software II<br>
+            - Comunicação de Dados<br><br>
+            Autores:<br>
+            Arthur Siqueira - 081210013<br>
+            Caio Diniz - 081210002<br>
+            Lorenzo Messias - 081210026<br>
+            Luiz Guilherme - 081210010<br>
+        </p>
+    </main>
+    <footer>
+        <p>MacroWave</p>
+        <p>Faculdade Engenheiro Salvador Arena</p>
+    </footer>
+</div>
+</body>
+</html>
