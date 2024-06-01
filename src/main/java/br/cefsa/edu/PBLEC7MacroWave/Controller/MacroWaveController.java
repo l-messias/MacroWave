@@ -55,9 +55,6 @@ public class MacroWaveController {
                                                         @RequestParam("canal") Canal canal,
                                                         @RequestParam("frequenciaDeCorteSup") int frequenciaDeCorteSup,
                                                         @RequestParam(value = "frequenciaDeCorteInf", required = false) Integer frequenciaDeCorteInf) {
-            frequencia = frequencia * 1000;
-            frequenciaDeCorteInf = frequenciaDeCorteInf * 1000;
-            frequenciaDeCorteSup = frequenciaDeCorteSup * 1000;
 
         Map<Double, Double> sinaisEntrada;
         Map<Double, Double> sinaisSaida;
@@ -67,6 +64,7 @@ public class MacroWaveController {
         Map<Double, Double> fasePorFrequenciaEntrada;
         Map<Double, Double> amplitudePorFrequenciaSaida;
         Map<Double, Double> fasePorFrequenciaSaida;
+
         switch (categoria) {
             case SENOIDAL -> {
                 sinaisEntrada = CalculoOndaSenoidalRetificada.getInstance().calcularSinalEntrada(frequencia);

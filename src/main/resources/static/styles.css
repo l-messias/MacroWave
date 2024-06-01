@@ -7,11 +7,11 @@
     --cor-background-1: hsl(232, 6%, 8%);
     --cor-complementar: hsl(27 100% 70%);
     --cor-header: hsl(0, 0%, 4%);
-    --cor-primaria: hsl(0, 80%, 100%);
-    --cor-secundaria: hsl(0, 70%, 100%);
-    --cor-texto-1: hsl(0, 0%, 100%);
-    --cor-texto-2: hsl(225, 30%, 70%);
-    --cor-texto-3: hsl(0, 0%, 30%);
+    --cor-primaria: hsl(0 0 90%);
+    --cor-secundaria: hsl(0 70% 100%);
+    --cor-texto-1: hsl(0 0% 100%);
+    --cor-texto-2: hsl(225 30% 70%);
+    --cor-texto-3: hsl(225 30% 30%);
 }
 
 
@@ -130,7 +130,7 @@ body {
 }
 
 .container-mw {
-    margin: 20px;
+    margin: 40px 240px;
 }
 
 .simul-mw {
@@ -198,6 +198,8 @@ text-align: center;
 .form-onda {
     display: flex;
     flex-direction: column;
+    margin-top: 80px;
+    align-items: center;
 }
 
 .form-onda label {
@@ -216,23 +218,27 @@ select {
     border-radius: 20px;
     border: none;
     padding: 10px;
+    background-color: var(--cor-primaria);
+    font-weight: 500;
+    color: var(--cor-texto-3);
+    font-family: var(--fonte-principal);
 }
 
 .onda-container {
     display: flex;
     flex-direction: row;
-    margin: 40px 20px;
+    margin: 0 20px;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
     align-items: center;
     gap: 20px;
 }
-
 .grafico-onda {
     width: 930px;
     height: 400px;
-    border: 1px black solid;
+    border: 2px solid var(--cor-separador);
+    border-radius: 12px;
 }
 
 .footer-mw {
@@ -255,19 +261,19 @@ select {
 .campo {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
 }
 
 .btn-mw {
-    max-width: 140px;
     align-self: center;
-    padding: 10px;
+    padding: 16px 14px;
     border: none;
-    background-color: hsl(293, 100%, 2%);
+    background-color: var(--cor-complementar);
     border-radius: 20px;
-    color: hsl(0 0% 100%);
+    color: var(--cor-background);
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1.3em;
+    margin: 40px 0;
 }
 
 .three-dots {
