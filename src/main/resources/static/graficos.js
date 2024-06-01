@@ -18,6 +18,10 @@ $(document).ready(function () {
 
 
         if (valido) {
+
+            document.getElementById("borda-mw").hidden = false;
+            document.getElementById("borda-mw").classList.add("borda-mw");
+            document.getElementById("borda-mw").classList.add("borda-mw-simul");
             $.ajax({
                 type: "POST",
                 url: "/criar-simulacao",
@@ -85,12 +89,12 @@ function validarDados() {
 function exibirGraficos(data) {
     plotGraph('sinal-entrada', 'Sinal de Entrada', data.sinaisEntrada, 'Tempo (ms)', 'Amplitude (Volts)', 'lines', { x: 10, y: 1.2 });
     plotGraph('sinal-saida', 'Sinal de Saída', data.sinaisSaida, 'Tempo (ms)', 'Amplitude (Volts)', 'lines', { x: 10, y: 1.2 });
-    plotGraph('modulo-resposta', 'Módulo da Resposta em Frequência', data.respostaModuloCanal, 'Frequência (kHz)', 'Módulo', 'lines', { x: 10, y: 0 });
-    plotGraph('fase-resposta', 'Fase da Resposta em Frequência', data.respostaFaseCanal, 'Frequência (kHz)', 'Fase (graus)', 'lines', { x: 10, y: 0 });
-    plotGraph('amplitudes', 'Amplitude por Frequência de Entrada', data.amplitudePorFrequenciaEntrada, 'Frequência (kHz)', 'Amplitude (Volts)', 'bar', { x: 1.5, y: 0 });
-    plotGraph('fases', 'Fase por Frequência de Entrada', data.fasePorFrequenciaEntrada, 'Frequência (kHz)', 'Fase (graus)', 'bar', { x: 1.5, y: 0 });
-    plotGraph('amplitudes-saida', 'Amplitude por Frequência de Saída', data.amplitudePorFrequenciaSaida, 'Frequência (kHz)', 'Amplitude (Volts)', 'bar', { x: 1.5, y: 0 });
-    plotGraph('fases-saida', 'Fase por Frequência de Saída', data.fasePorFrequenciaSaida, 'Frequência (kHz)', 'Fase (graus)', 'bar', { x: 1.5, y: 0 });
+    plotGraph('modulo-resposta', 'Módulo da Resposta em Frequência', data.respostaModuloCanal, 'Frequência (kHz)', 'Módulo', 'lines', { x: 0, y: 0 });
+    plotGraph('fase-resposta', 'Fase da Resposta em Frequência', data.respostaFaseCanal, 'Frequência (kHz)', 'Fase (graus)', 'lines', { x: 0, y: 0 });
+    plotGraph('amplitudes', 'Amplitude por Frequência de Entrada', data.amplitudePorFrequenciaEntrada, 'Frequência (kHz)', 'Amplitude (Volts)', 'bar', { x: 0, y: 0 });
+    plotGraph('fases', 'Fase por Frequência de Entrada', data.fasePorFrequenciaEntrada, 'Frequência (kHz)', 'Fase (graus)', 'bar', { x: 0, y: 0 });
+    plotGraph('amplitudes-saida', 'Amplitude por Frequência de Saída', data.amplitudePorFrequenciaSaida, 'Frequência (kHz)', 'Amplitude (Volts)', 'bar', { x: 0, y: 0 });
+    plotGraph('fases-saida', 'Fase por Frequência de Saída', data.fasePorFrequenciaSaida, 'Frequência (kHz)', 'Fase (graus)', 'bar', { x: 0, y: 0 });
 }
 
 function plotGraph(divId, title, data, xTitle, yTitle, type, range) {
@@ -136,7 +140,6 @@ function plotGraph(divId, title, data, xTitle, yTitle, type, range) {
             showgrid: false, // Esconde o grid do eixo X
             zeroline: true, // Mostra a linha central do eixo X
             zerolinecolor: corBarra, // Cor da linha central do eixo X
-            tickformat: ',d',
             ticksuffix: '  ' // Adiciona espaço extra após os rótulos dos ticks no eixo X
         },
         yaxis: {

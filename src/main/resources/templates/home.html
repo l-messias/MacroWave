@@ -17,7 +17,7 @@
 
         <nav class="navbar">
             <ul>
-                <li><a class="cor-complementar" th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="simulacao">Simulação de Ondas de Sinal</a></li>
                 <li><a th:href="sobre">Sobre</a></li>
             </ul>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="simul-mw">
-            <button id="btn-jump-simul" class="btn-jump-simul">Crie uma Simulação</button>
+            <button id="btn-jump-simul" class="btn-jump-simul" onclick="redirectToSimulation()">Crie uma Simulação</button>
         </div>
 
         <div class="borda-mw">
@@ -43,7 +43,7 @@
         </div>
         
         <div class="txt-mw">
-            <p>Utilizando a Transformada de Fourier, calculamos e exibimos ondas eletromagnéticas e como são afetadas por um canal a partir das informações determinadas pelo próprio usuário.</p>
+            <p>Utilizando a Transformada de Fourier, calculamos e exibimos ondas eletromagnéticas Quadradas, Triangulares, Dentes-de-Serras e Senoidais Retificadas e analisamos como são afetadas por um canal a partir das informações determinadas pelo próprio usuário.</p>
         </div>
        
     </main>
@@ -58,5 +58,7 @@
 
     </footer>
 
+    <script src="/scripts.js"></script>
+    
 </body>
 </html>
