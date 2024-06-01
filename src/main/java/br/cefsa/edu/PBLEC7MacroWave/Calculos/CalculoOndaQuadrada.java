@@ -1,4 +1,4 @@
-package br.cefsa.edu.PBLEC7MacroWave.Model;
+package br.cefsa.edu.PBLEC7MacroWave.Calculos;
 
 public class CalculoOndaQuadrada extends CalculoOnda {
     private static CalculoOndaQuadrada instance;

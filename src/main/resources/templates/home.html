@@ -17,8 +17,8 @@
 
         <nav class="navbar">
             <ul>
-                <li><a class="cor-complementar" th:href="home">Home</a></li>
-                <li><a th:href="@{/}">Simulação de Ondas de Sinal</a></li>
+                <li><a class="cor-complementar" th:href="@{/}">Home</a></li>
+                <li><a th:href="simulacao">Simulação de Ondas de Sinal</a></li>
                 <li><a th:href="sobre">Sobre</a></li>
             </ul>
         </nav>
@@ -29,13 +29,28 @@
 
     <main class="main-mw">
 
-        <h1 class="cor-complementar">Bem-vindo à MacroWave</h1>
+        <div class="head-txt-mw">
+            <h1>Bem-vindo à MacroWave</h1>
+            <h2>Simulador de Ondas de Sinais Períodicos simples, versátil e intuitivo</h2>
+        </div>
 
+        <div class="simul-mw">
+            <button id="btn-jump-simul" class="btn-jump-simul">Crie uma Simulação</button>
+        </div>
+
+        <div class="borda-mw">
+            <img src="mw-border-down.png">
+        </div>
+        
+        <div class="txt-mw">
+            <p>Utilizando a Transformada de Fourier, calculamos e exibimos ondas eletromagnéticas e como são afetadas por um canal a partir das informações determinadas pelo próprio usuário.</p>
+        </div>
+       
     </main>
 
     <footer class="footer-mw">
 
-        <p>MacroWave</p>
+        <p>&copy MacroWave</p>
         <p> - </p>
         <p>Faculdade Engenheiro Salvador Arena</p>
         <p> - </p>

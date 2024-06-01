@@ -2,28 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>MacroWave - Home</title>
+    <title>MacroWave - Simulação de Ondas</title>
     <link rel="stylesheet" type="text/css" href="/styles.css">
-    <link rel="stylesheet" type="text/css" href="/stylesHome.css">
-
+    <link rel="icon" th:href="@{/mw-icon.ico}" type="image/x-icon">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li><a th:href="home">Home</a></li>
-            <li><a th:href="@{/}">Simulação de Ondas de Sinal</a></li>
-            <li><a th:href="sobre">Sobre</a></li>
-        </ul>
-    </nav>
-</header>
+
+    <header class="header-mw">
+
+        <div class="marca-mw cor-complementar">
+            <img src="mw-logo.png" class="logo">
+        </div>
+
+        <nav class="navbar">
+            <ul>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="simulacao">Simulação de Ondas de Sinal</a></li>
+                <li><a th:href="sobre">Sobre</a></li>
+            </ul>
+        </nav>
+
+        <div class="espaco"></div>
+
+    </header>
 
 <!-- Main Container -->
 <main class="main-mw">
     <div class="container-mw">
-        <h1 class="animated-title">Simulação de Ondas de Sinal</h1><br>
+        
+        <div class="head-txt-mw">
+            <h1>Simulação de Ondas de Sinal</h1>
+        </div>
+        
         <div class="form-onda" id="form-onda">
 
             <div class="campo">

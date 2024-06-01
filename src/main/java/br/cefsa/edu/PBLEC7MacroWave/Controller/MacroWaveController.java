@@ -1,4 +1,8 @@
 package br.cefsa.edu.PBLEC7MacroWave.Controller;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaDenteSerra;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaQuadrada;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaSenoidalRetificada;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaTriangular;
 import br.cefsa.edu.PBLEC7MacroWave.Model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,13 +28,14 @@ public class MacroWaveController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "home";
     }
 
-    @GetMapping("/wave")
+    @GetMapping("/simulacao")
     public String wave() {
-        return "wave";
+        return "simulacao";
     }
+
     @GetMapping("/home")
     public String home() {
         return "home";
