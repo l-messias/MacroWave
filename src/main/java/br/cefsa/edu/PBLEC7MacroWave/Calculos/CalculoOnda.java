@@ -1,5 +1,5 @@
-package br.cefsa.edu.PBLEC7MacroWave.Model;
-
+package br.cefsa.edu.PBLEC7MacroWave.Calculos;
+import br.cefsa.edu.PBLEC7MacroWave.Model.Canal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

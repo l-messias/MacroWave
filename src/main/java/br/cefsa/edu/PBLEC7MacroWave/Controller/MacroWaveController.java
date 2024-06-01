@@ -1,4 +1,8 @@
 package br.cefsa.edu.PBLEC7MacroWave.Controller;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaDenteSerra;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaQuadrada;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaSenoidalRetificada;
+import br.cefsa.edu.PBLEC7MacroWave.Calculos.CalculoOndaTriangular;
 import br.cefsa.edu.PBLEC7MacroWave.Model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,13 +28,14 @@ public class MacroWaveController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "home";
     }
 
-    @GetMapping("/wave")
+    @GetMapping("/simulacao")
     public String wave() {
-        return "wave";
+        return "simulacao";
     }
+
     @GetMapping("/home")
     public String home() {
         return "home";
@@ -50,9 +55,6 @@ public class MacroWaveController {
                                                         @RequestParam("canal") Canal canal,
                                                         @RequestParam("frequenciaDeCorteSup") int frequenciaDeCorteSup,
                                                         @RequestParam(value = "frequenciaDeCorteInf", required = false) Integer frequenciaDeCorteInf) {
-            frequencia = frequencia * 1000;
-            frequenciaDeCorteInf = frequenciaDeCorteInf * 1000;
-            frequenciaDeCorteSup = frequenciaDeCorteSup * 1000;
 
         Map<Double, Double> sinaisEntrada;
         Map<Double, Double> sinaisSaida;
@@ -62,6 +64,7 @@ public class MacroWaveController {
         Map<Double, Double> fasePorFrequenciaEntrada;
         Map<Double, Double> amplitudePorFrequenciaSaida;
         Map<Double, Double> fasePorFrequenciaSaida;
+
         switch (categoria) {
             case SENOIDAL -> {
                 sinaisEntrada = CalculoOndaSenoidalRetificada.getInstance().calcularSinalEntrada(frequencia);
