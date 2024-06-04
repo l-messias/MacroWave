@@ -3,38 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre</title>
-    <link rel="stylesheet" href="stylesHome.css">
+    <title>MacroWave - Sobre</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" th:href="@{/mw-icon.ico}" type="image/x-icon">
 </head>
 <body>
-<div class="container">
-    <header>
-        <nav>
+
+    <header class="header-mw">
+
+        <div class="marca-mw cor-complementar">
+            <img src="mw-logo.png" class="logo">
+        </div>
+
+        <nav class="navbar">
             <ul>
-                <li><a th:href="home">Home</a></li>
-                <li><a th:href="@{/}">Simulação de Ondas de Sinal</a></li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="simulacao">Simulação de Ondas de Sinal</a></li>
                 <li><a th:href="sobre">Sobre</a></li>
             </ul>
         </nav>
+
+        <div class="espaco"></div>
+
     </header>
-    <main>
-        <h1 class="animated-title">Sobre</h1>
-        <p class="about-text">
-            Project Based Learning desenvolvido com as disciplinas:<br>
-            - Linguagem de Programação III<br>
-            - Engenharia de Software II<br>
-            - Comunicação de Dados<br><br>
-            Autores:<br>
-            Arthur Siqueira - 081210013<br>
-            Caio Diniz - 081210002<br>
-            Lorenzo Messias - 081210026<br>
-            Luiz Guilherme - 081210010<br>
-        </p>
+
+    <main class="main-mw">
+
+        <div class="container-mw sobre-mw">
+            <div class="head-txt-mw">
+                <h1 style="font-size: 5em;">Sobre o Macrowave</h1>
+            </div>
+            
+            <div class="sobre-txt">
+                <p>
+                    Project Based Learning desenvolvido com as disciplinas:<br>
+                    - Linguagem de Programação III<br>
+                    - Engenharia de Software II<br>
+                    - Comunicação de Dados<br><br>
+                    Autores:<br>
+                    Arthur Siqueira - 081210013<br>
+                    Caio Diniz - 081210002<br>
+                    Lorenzo Messias - 081210026<br>
+                    Luiz Guilherme - 081210010<br>
+                </p>
+            </div>
+
+        </div>
+       
     </main>
-    <footer>
-        <p>MacroWave</p>
+
+    <footer class="footer-mw">
+
+        <p>&copy MacroWave</p>
+        <p> - </p>
         <p>Faculdade Engenheiro Salvador Arena</p>
+        <p> - </p>
+        <p>2024</p>
+
     </footer>
-</div>
+
 </body>
 </html>
+

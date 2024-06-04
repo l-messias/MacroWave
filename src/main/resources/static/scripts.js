@@ -12,3 +12,7 @@ function exibeCorteInf() {
         document.getElementById("label-freq-corte").innerText = "Frequência de Corte em kHz (1kHz - 100kHz)";
     }
 };
+
+function redirectToSimulation() {
+    window.location.href = '/simulacao';
+}

@@ -92,7 +92,7 @@ public abstract class CalculoOnda {
                 sinalEntrada += calculaSinal(amplitude,n,frequencia,t,fase);
 
                 //Preenche mapas referentes ao sinal de entrada com base na frequencia (fn) atual;
-                preencheAmplitudeFasePorFrequencia(true, amplitude, frequencia, n, fase);
+                preencheAmplitudeFasePorFrequencia(true, amplitude, frequencia, n, Math.toDegrees(fase));
             }
 
             //Insere no mapa a Amplitude do Sinal com base no instante 't'

@@ -133,6 +133,21 @@ body {
     margin: 40px 240px;
 }
 
+.sobre-mw {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.sobre-txt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 80px 0;
+    font-size: 1.5em;
+}
+
 .simul-mw {
     display: flex;
     justify-content: center;
@@ -148,6 +163,7 @@ body {
     padding: 16px 14px;
     border-radius: 10px;
     margin: 20px 0px;
+    cursor: pointer;
 }
 
 .borda-mw {
@@ -160,6 +176,13 @@ body {
     width: calc(100% - 480px);
 }
 
+.borda-mw-simul {
+    margin-bottom: 40px;
+}
+
+.borda-mw-simul img {
+    width: calc(100% - 48px);
+}
 .txt-mw {
 font-size: 1.5em;
 font-weight: 300;
@@ -215,7 +238,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .form-onda input,
 select {
     margin-bottom: 20px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
     padding: 10px;
     background-color: var(--cor-primaria);
@@ -234,6 +257,7 @@ select {
     align-items: center;
     gap: 20px;
 }
+
 .grafico-onda {
     width: 930px;
     height: 400px;
@@ -269,11 +293,12 @@ select {
     padding: 16px 14px;
     border: none;
     background-color: var(--cor-complementar);
-    border-radius: 20px;
+    border-radius: 10px;
     color: var(--cor-background);
     font-weight: 600;
     font-size: 1.3em;
-    margin: 40px 0;
+    margin: 30px 0 40px;
+    cursor: pointer;
 }
 
 .three-dots {
@@ -281,6 +306,7 @@ select {
     justify-content: center;
     align-items: center;
     height: 50px;
+    margin-bottom: 20px;
     /* Altura da área da animação */
 }
 

@@ -10,23 +10,23 @@
 </head>
 <body>
 
-    <header class="header-mw">
+<header class="header-mw">
 
-        <div class="marca-mw cor-complementar">
-            <img src="mw-logo.png" class="logo">
-        </div>
+    <div class="marca-mw cor-complementar">
+        <img src="mw-logo.png" class="logo">
+    </div>
 
-        <nav class="navbar">
-            <ul>
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="simulacao">Simulação de Ondas de Sinal</a></li>
-                <li><a th:href="sobre">Sobre</a></li>
-            </ul>
-        </nav>
+    <nav class="navbar">
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="simulacao">Simulação de Ondas de Sinal</a></li>
+            <li><a th:href="sobre">Sobre</a></li>
+        </ul>
+    </nav>
 
-        <div class="espaco"></div>
+    <div class="espaco"></div>
 
-    </header>
+</header>
 
 <!-- Main Container -->
 <main class="main-mw">
@@ -35,7 +35,7 @@
         <div class="head-txt-mw">
             <h1 style="font-size: 5em;">Simulação de Ondas de Sinal</h1>
         </div>
-        
+
         <div class="form-onda" id="form-onda">
 
             <div class="campo">
@@ -59,7 +59,8 @@
             </div>
 
             <div class="campo" id="freq-sup">
-                <label for="frequencia-corte-sup" id="label-freq-corte">Frequência de Corte em kHz (1kHz - 100kHz)</label>
+                <label for="frequencia-corte-sup" id="label-freq-corte">Frequência de Corte em kHz (1kHz -
+                    100kHz)</label>
                 <input type="number" name="frequencia-corte-sup" id="frequencia-corte-sup"></input>
             </div>
 
@@ -70,7 +71,17 @@
 
             <button class="btn-mw" id="criar-simulacao">Criar Simulação</button>
         </div>
-        <br>
+
+        <div class="three-dots" id="loadingDots">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <div id="borda-mw" hidden>
+            <img src="mw-border-down.png">
+        </div>
+
         <div class="onda-container" id="onda-container">
             <div id="sinal-entrada"></div>
             <div id="sinal-saida"></div>
@@ -84,6 +95,8 @@
     </div>
 </main>
 
+
+
 <footer class="footer-mw">
 
     <p>&copy MacroWave</p>
@@ -96,11 +109,6 @@
 <!-- Script para enviar o formulário via AJAX -->
 <script src="/scripts.js"></script>
 <script src="/graficos.js"></script>
-<div class="three-dots" id="loadingDots">
-    <div></div>
-    <div></div>
-    <div></div>
-</div>
 
 </body>
 </html>

@@ -118,7 +118,6 @@ public class MacroWaveController {
             }
         };
 
-
         Map<String, Object> response = new HashMap<>();
         response.put("sinaisEntrada", sinaisEntrada);
         response.put("sinaisSaida", sinaisSaida);
